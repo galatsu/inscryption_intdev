@@ -16,7 +16,7 @@ public class HandRenderer : MonoBehaviour
         for(int i = 0; i < size; i++)
         {
             Transform card = hand.cards[i].transform;
-            card.position = new Vector3(((float)i/(float)size)*9, 0, 0);
+            card.position = new Vector3(((float)i/(float)size)*9, 0, i);
         }
     }
 }
