@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
+    public DefaultDeck defaultDeck;
     public GameObject cardObjectPrefab;
     static List<CardAsset> cards;
     List<CardObject> instanceCards;
     void InstantiateDeck()
     {
         instanceCards = new List<CardObject>();
-        cards = new SerializableDeck(SerializableDeck.Load()).cards;
+        cards = new SerializableDeck(SerializableDeck.Load(defaultDeck.defaultCardAssets)).cards;
     }
 }
 [System.Serializable]
@@ -41,5 +42,21 @@ public class SerializableDeck
         List<CardAsset> loadedDeck = (List<CardAsset>) formatter.Deserialize(fs);
         fs.Close();
         return loadedDeck;
+    }
+    public static List<CardAsset> Load(List<CardAsset> returnIfFailed)
+    {
+        if (File.Exists(Application.persistentDataPath + "/save.deck"))
+        {
+            FileStream fs = new FileStream(Application.persistentDataPath + "/save.deck", FileMode.OpenOrCreate);
+            BinaryFormatter formatter = new BinaryFormatter();
+            List<CardAsset> loadedDeck = (List<CardAsset>)formatter.Deserialize(fs);
+            fs.Close();
+            return loadedDeck;
+        }
+        else
+        {
+            return returnIfFailed;
+        }
+            
     }
 }
