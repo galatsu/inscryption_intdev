@@ -20,8 +20,9 @@ public class Deck : MonoBehaviour
         cards = new SerializableDeck(SerializableDeck.Load(defaultDeck.defaultCardAssets)).cards;
         foreach(CardAsset card in cards)
         {
-            GameObject cardObject = Instantiate(cardObjectPrefab);
+            GameObject cardObject = Instantiate(cardObjectPrefab, transform.position, transform.rotation);
             cardObject.GetComponent<CardObject>().cardAsset = card;
+            instanceCards.Add(cardObject.GetComponent<CardObject>());
         }
         Shuffle();
     }
@@ -41,6 +42,7 @@ public class Deck : MonoBehaviour
     public CardObject Draw()
     {
         int index = instanceCards.Count - 1;
+        Debug.Log($"Drew card at height {index}");
         if (index >= 0)
         {
             CardObject card = instanceCards[index];

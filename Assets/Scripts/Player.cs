@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             var card = deck.Draw();
-            if(card!=null) hand.AddToHand(card);
+            if (card != null) { hand.AddToHand(card); Debug.Log("Added to handtest"); }
         }
     }
     void PickFromHand()
