@@ -12,11 +12,6 @@ public class BattleLoop : MonoBehaviour
         AssembleStatemachine();
 
     }
-    void Start()
-    {
-        
-    }
-
 
     void Update()
     {

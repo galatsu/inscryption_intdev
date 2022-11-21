@@ -35,6 +35,7 @@ public class CardData
         return asset;
     }
 }
+//card effects not implemented
 public abstract class CardEffect
 {
     public string effectName = "";
@@ -59,7 +60,6 @@ public class MirrorEffect : CardEffect
         effectName = "Mirror";
         signature.AddListener(Action);
         //signature = when card adjacent changes
-
     }
     void Action()
     {

@@ -18,4 +18,17 @@ public class CardAsset : ScriptableObject
     {
         cardValidater.Invoke();
     }
+    //copy constructor
+    public CardAsset(CardAsset original)
+    {
+        cardName = original.cardName;
+        art = original.art;
+        power = original.power;
+        health = original.health;
+        cost = original.cost;
+    }
+    public CardAsset()
+    {
+        //default constructor
+    }
 }

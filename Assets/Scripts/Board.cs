@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject cardSlotPrefab;
+    CardSlot[,] cardSlots;
+    const int lanes = 4;
+    const int rows = 3;
+
+    private void Awake()
     {
-        
+        AssembleLanes();
     }
 
-    // Update is called once per frame
-    void Update()
+    void AssembleLanes()
     {
+        cardSlots = new CardSlot[lanes,rows];
+        for(int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < lanes; j++)
+            {
+                Debug.Log($"Assembling slot {i}, {j}");
+                GameObject slot = Instantiate(cardSlotPrefab, transform);
+                slot.transform.position = new Vector3(j * 7, i * 9, 0);
+
+                cardSlots[j, i] = slot.GetComponent<CardSlot>();
+            }
+        }
         
     }
 }
