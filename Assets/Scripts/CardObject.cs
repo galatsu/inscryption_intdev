@@ -30,7 +30,7 @@ public class CardObject : MonoBehaviour
         cardAsset.cardValidater.AddListener(ResetCard);
         ResetCard();
     }
-    void Start()
+    void Awake()
     {
         ResetCard();
     }

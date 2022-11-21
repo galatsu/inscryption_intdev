@@ -14,6 +14,32 @@ public class Deck : MonoBehaviour
     {
         instanceCards = new List<CardObject>();
         cards = new SerializableDeck(SerializableDeck.Load(defaultDeck.defaultCardAssets)).cards;
+        foreach(CardAsset card in cards)
+        {
+            GameObject cardObject = Instantiate(cardObjectPrefab);
+            cardObject.GetComponent<CardObject>().cardAsset = card;
+        }
+        Shuffle();
+    }
+    public void Shuffle()
+    {
+        int n = cards.Count;
+        System.Random random = new System.Random();
+        while (n > 1)
+        {
+            n--;
+            int k = random.Next(n + 1);
+            CardObject swap = instanceCards[k];
+            instanceCards[k] = instanceCards[n];
+            instanceCards[n] = swap;
+        }
+    }
+    public CardObject Draw()
+    {
+        int index = instanceCards.Count - 1;
+        CardObject card = instanceCards[index];
+        instanceCards.RemoveAt(index);
+        return card;
     }
 }
 [System.Serializable]
