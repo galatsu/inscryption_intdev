@@ -24,7 +24,7 @@ public class Board : MonoBehaviour
             {
                 Debug.Log($"Assembling slot {i}, {j}");
                 GameObject slot = Instantiate(cardSlotPrefab, transform);
-                slot.transform.position = new Vector3(j * 7, i * 9, 0);
+                slot.transform.position = new Vector3(j * 107, i * 19, 0);
 
                 cardSlots[j, i] = slot.GetComponent<CardSlot>();
             }
