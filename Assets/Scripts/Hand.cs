@@ -25,11 +25,7 @@ public class Hand : MonoBehaviour
         {
             var card = cardPicked;
             cards.Remove(cardPicked);
-            return card;
-        }
-        else
-        {
-            return null;
+            
         }
     }
 }

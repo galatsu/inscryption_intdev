@@ -5,19 +5,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     CardObject cardSelected;
+    CardSlot slotSelected;
     Board board;
     Hand hand;
     Deck deck;
     StateMachine stateMachine;
+    public Camera cam;
     void AssembleStateMachine()
     {
         stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustPlayCardOrCancel);
+        stateMachine.ChangeState("CanSelectCardFromHand");
     }
     private void Awake()
     {
         AssembleStateMachine();
     }
-
+    private void Update()
+    {
+        stateMachine.Execute();
+    }
     #region states
     void CantSelectCard()
     {
@@ -25,7 +31,10 @@ public class Player : MonoBehaviour
     }
     void CanSelectCardFromHand()
     {
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            MouseSelect(cam);
+        }
     }
     void MustPlayCardOrCancel()
     {
@@ -33,6 +42,25 @@ public class Player : MonoBehaviour
     }
     #endregion
     #region actions
+    void MouseSelect(Camera camera)
+    {
+        RaycastHit2D hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        hit = Physics2D.Raycast(ray.origin, ray.direction);
+        if (hit.transform != null)
+        {
+            Transform objectHit = hit.transform;
+            if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
+            {
+                cardSelected = hitCard.GetParent();
+            }
+            else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
+            {
+                slotSelected = hitSlot.GetParent();
+            }
+        }
+        else Debug.Log("No selectable object found");
+    }
     void DrawFromDeckToHand()
     {
         var card = deck.Draw();
