@@ -6,7 +6,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public GameObject cardSlotPrefab;
-    CardSlot[,] cardSlots;
+    public CardSlot[,] cardSlots;
     const int lanes = 4;
     const int rows = 3;
 

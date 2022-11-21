@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    List<CardObject> cards;
-    public delegate CardObject CardPlacementConfirmed(bool success, CardObject cardPicked);
+    public List<CardObject> cards;
+    public delegate void CardPlacementConfirmed(bool success, CardObject cardPicked);
     public CardPlacementConfirmed cardPlacementConfirmed;
-    public Deck deck;
 
-    void AddToHand(CardObject cardToAdd)
+    public void AddToHand(CardObject cardToAdd)
     {
         //hopefully this captures the value of the card and doesnt get deleted
         cards.Add(cardToAdd);
@@ -19,7 +18,7 @@ public class Hand : MonoBehaviour
         cardPlacementConfirmed += RemoveCardConfirmed;
         return cardPlacementConfirmed;
     }
-    CardObject RemoveCardConfirmed(bool success, CardObject cardPicked)
+    public void RemoveCardConfirmed(bool success, CardObject cardPicked)
     {
         cardPlacementConfirmed -= RemoveCardConfirmed;
         if (success)

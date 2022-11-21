@@ -41,13 +41,4 @@ public class CardSlot : MonoBehaviour
         }
         
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
