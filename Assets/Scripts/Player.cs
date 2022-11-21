@@ -8,7 +8,31 @@ public class Player : MonoBehaviour
     Board board;
     Hand hand;
     Deck deck;
+    StateMachine stateMachine;
+    void AssembleStateMachine()
+    {
+        stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustPlayCardOrCancel);
+    }
+    private void Awake()
+    {
+        AssembleStateMachine();
+    }
 
+    #region states
+    void CantSelectCard()
+    {
+
+    }
+    void CanSelectCardFromHand()
+    {
+
+    }
+    void MustPlayCardOrCancel()
+    {
+
+    }
+    #endregion
+    #region actions
     void DrawFromDeckToHand()
     {
         var card = deck.Draw();
@@ -31,6 +55,7 @@ public class Player : MonoBehaviour
             board.cardSlots[lane, 0].InsertCard(cardSelected);
             cardSelected = null;
         }
-        
+
     }
+    #endregion
 }
