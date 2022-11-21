@@ -6,8 +6,11 @@ public class Player : MonoBehaviour
 {
     CardObject cardSelected;
     CardSlot slotSelected;
+    [SerializeField]
     Board board;
+    [SerializeField]
     Hand hand;
+    [SerializeField]
     Deck deck;
     StateMachine stateMachine;
     public Camera cam;
@@ -61,10 +64,18 @@ public class Player : MonoBehaviour
         }
         else Debug.Log("No selectable object found");
     }
-    void DrawFromDeckToHand()
+    void ClearSelection()
     {
-        var card = deck.Draw();
-        hand.AddToHand(card);
+        cardSelected = null;
+        slotSelected = null;
+    }
+    public void DrawFromDeckToHand(int amount = 1)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            var card = deck.Draw();
+            if(card!=null) hand.AddToHand(card);
+        }
     }
     void PickFromHand()
     {

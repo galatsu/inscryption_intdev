@@ -10,6 +10,10 @@ public class Deck : MonoBehaviour
     public GameObject cardObjectPrefab;
     static List<CardAsset> cards;
     List<CardObject> instanceCards;
+    private void Awake()
+    {
+        InstantiateDeck();
+    }
     void InstantiateDeck()
     {
         instanceCards = new List<CardObject>();
@@ -37,9 +41,13 @@ public class Deck : MonoBehaviour
     public CardObject Draw()
     {
         int index = instanceCards.Count - 1;
-        CardObject card = instanceCards[index];
-        instanceCards.RemoveAt(index);
-        return card;
+        if (index >= 0)
+        {
+            CardObject card = instanceCards[index];
+            instanceCards.RemoveAt(index);
+            return card;
+        }
+        else return null;
     }
 }
 [System.Serializable]
@@ -50,7 +58,7 @@ public class SerializableDeck
     {
         foreach(CardAsset card in cards)
         {
-            cards.Add(new CardAsset(card));
+            this.cards.Add(card);
         }
     }
     //make this safer!!! TODO
@@ -81,6 +89,7 @@ public class SerializableDeck
         }
         else
         {
+            Debug.Log("Failed to load path, returning default cards");
             return returnIfFailed;
         }
             

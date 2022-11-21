@@ -5,6 +5,7 @@ using UnityEngine;
 public class BattleLoop : MonoBehaviour
 {
     public StateMachine stateMachine;
+    public Player player;
     Board board;
 
     private void Awake()
@@ -19,6 +20,7 @@ public class BattleLoop : MonoBehaviour
     }
     void PlayerFirstTurn()
     {
+        player.DrawFromDeckToHand(4);
         stateMachine.ChangeState("PlayerEndTurn");
     }
     void PlayerDraw()
@@ -31,7 +33,7 @@ public class BattleLoop : MonoBehaviour
     }
     void PlayerEndTurn()
     {
-        stateMachine.ChangeState("OpponentTurn");
+        //stateMachine.ChangeState("OpponentTurn");
     }
     void OpponentTurn()
     {
