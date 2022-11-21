@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f1c993d08424d41abf4cb29be614bc, type: 3}
   m_Name: DefaultDeck
   m_EditorClassIdentifier: 
+  defaultCardAssets:
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
