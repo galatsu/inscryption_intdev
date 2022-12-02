@@ -47,9 +47,11 @@ public class Player : MonoBehaviour
     #region actions
     void MouseSelect(Camera camera)
     {
+        //cast a ray to determine if when we click our mouse is colliding with something
         RaycastHit2D hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         hit = Physics2D.Raycast(ray.origin, ray.direction);
+        //if we do click something
         if (hit.transform != null)
         {
             Transform objectHit = hit.transform;
