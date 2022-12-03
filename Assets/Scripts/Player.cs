@@ -66,10 +66,12 @@ public class Player : MonoBehaviour
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
                 cardSelected = hitCard.GetParent();
+                Debug.Log("Selected card");
             }
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
+                Debug.Log("Selected slot");
             }
         }
         else Debug.Log("No selectable object found");
