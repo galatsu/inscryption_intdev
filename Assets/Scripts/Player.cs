@@ -9,11 +9,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     Board board;
     [SerializeField]
-    Hand hand;
+    public Hand hand;
     [SerializeField]
     Deck deck;
-    StateMachine stateMachine;
+    public StateMachine stateMachine;
     public Camera cam;
+    public int numcards = 4;
     void AssembleStateMachine()
     {
         stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustPlayCardOrCancel);
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        stateMachine.Execute();
+        this.stateMachine.Execute();
     }
     #region states
     void CantSelectCard()
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour
     }
     void MustPlayCardOrCancel()
     {
-
+        
     }
     #endregion
     #region actions
@@ -58,10 +59,12 @@ public class Player : MonoBehaviour
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
                 cardSelected = hitCard.GetParent();
+                Debug.Log("Card selected: " + cardSelected);
             }
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
+                Debug.Log("Slot selected: " + hitSlot.name);
             }
         }
         else Debug.Log("No selectable object found");
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             var card = deck.Draw();
+            numcards++;
             if (card != null) { hand.AddToHand(card); Debug.Log("Added to handtest"); }
         }
     }

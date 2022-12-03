@@ -11,12 +11,11 @@ public class BattleLoop : MonoBehaviour
     private void Awake()
     {
         AssembleStatemachine();
-
     }
 
     void Update()
     {
-        stateMachine.Execute();
+        this.stateMachine.Execute();
     }
     void PlayerFirstTurn()
     {
@@ -25,18 +24,28 @@ public class BattleLoop : MonoBehaviour
     }
     void PlayerDraw()
     {
+        while (player.numcards < 4) { player.DrawFromDeckToHand(1); }
         stateMachine.ChangeState("PlayerTurn");
     }
     void PlayerTurn()
     {
+        Debug.Log("Player Turn");
+        player.stateMachine.ChangeState("CanSelectCardFromHand");
         stateMachine.ChangeState("PlayerEndTurn");
     }
     void PlayerEndTurn()
     {
-        //stateMachine.ChangeState("OpponentTurn");
+        player.stateMachine.ChangeState("CantSelectCard");
+        Debug.Log("Moving to opponent's turn");
+        stateMachine.ChangeState("OpponentTurn");
+    }
+    void OpponentFirstTurn()
+    {
+        stateMachine.ChangeState("OpponentEndTurn");
     }
     void OpponentTurn()
     {
+        Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentEndTurn");
     }
     void OpponentEndTurn()
@@ -46,7 +55,7 @@ public class BattleLoop : MonoBehaviour
 
     void AssembleStatemachine()
     {
-        stateMachine = new StateMachine(PlayerFirstTurn, PlayerDraw, PlayerTurn, PlayerEndTurn, OpponentTurn, OpponentEndTurn);
+        stateMachine = new StateMachine(PlayerFirstTurn, PlayerDraw, PlayerTurn, PlayerEndTurn, OpponentFirstTurn, OpponentTurn, OpponentEndTurn);
         stateMachine.ChangeState("PlayerFirstTurn");
     }
 }

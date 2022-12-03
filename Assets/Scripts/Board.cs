@@ -24,8 +24,8 @@ public class Board : MonoBehaviour
             {
                 Debug.Log($"Assembling slot {i}, {j}");
                 GameObject slot = Instantiate(cardSlotPrefab, transform);
-                slot.transform.position = new Vector3(j * 7, i * 9, 0);
-                //In theory bigger multipliers on i and j should make things spaced out...in practice nothing happens
+                slot.name = "Slot of Lane " + j + " Row " + i;
+                slot.transform.position = new Vector3(j * 7, i * 8, 0);
 
                 cardSlots[j, i] = slot.GetComponent<CardSlot>();
             }
