@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     #region states
     void CantSelectCard()
     {
-
+        ClearSelection();
     }
     void CanSelectCardFromHand()
     {
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         if (Input.inputString == "\b")
         {
             Debug.Log("Moving on");
-                playerturn = false;
+            playerturn = false;
         }
     }
     void MustPlayCardOrCancel()
@@ -66,12 +66,10 @@ public class Player : MonoBehaviour
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
                 cardSelected = hitCard.GetParent();
-                Debug.Log("Card selected: " + cardSelected);
             }
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
-                Debug.Log("Slot selected: " + hitSlot.name);
             }
         }
         else Debug.Log("No selectable object found");

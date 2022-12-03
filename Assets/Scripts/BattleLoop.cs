@@ -6,6 +6,7 @@ public class BattleLoop : MonoBehaviour
 {
     public StateMachine stateMachine;
     public Player player;
+    public Opponent opponent;
     Board board;
 
     private void Awake()
@@ -20,16 +21,16 @@ public class BattleLoop : MonoBehaviour
     void PlayerFirstTurn()
     {
         player.DrawFromDeckToHand(4);
-        stateMachine.ChangeState("PlayerEndTurn");
+        stateMachine.ChangeState("OpponentFirstTurn");
     }
     void PlayerDraw()
     {
         while (player.numcards < 4) { player.DrawFromDeckToHand(1); }
+        Debug.Log("Player Turn");
         stateMachine.ChangeState("PlayerTurn");
     }
     void PlayerTurn()
     {
-        Debug.Log("Player Turn");
         player.playerturn = true;
         if (player.playerturn == false)
         {
@@ -40,16 +41,16 @@ public class BattleLoop : MonoBehaviour
     void PlayerEndTurn()
     {
         player.stateMachine.ChangeState("CantSelectCard");
-        Debug.Log("Moving to opponent's turn");
+        Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentTurn");
     }
     void OpponentFirstTurn()
     {
-        stateMachine.ChangeState("OpponentEndTurn");
+        opponent.DrawFromDeckToHand(4);
+        stateMachine.ChangeState("PlayerTurn");
     }
     void OpponentTurn()
     {
-        Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentEndTurn");
     }
     void OpponentEndTurn()
