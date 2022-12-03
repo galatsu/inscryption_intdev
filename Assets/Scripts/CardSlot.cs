@@ -9,8 +9,8 @@ public class CardSlot : MonoBehaviour
     private Board board;
     public delegate CardObject CardPlacementConfirmed(bool success);
     public CardPlacementConfirmed cardPlacementConfirmed;
-    public int lane;
-    public int row;
+    public int lane = 0;
+    public int row = 0;
     //if there is nothing in the slot return false meaning empty
     public bool IsOccupied()
     {
