@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public StateMachine stateMachine;
     public Camera cam;
     public int numcards = 4;
+    public bool playerturn = false;
     void AssembleStateMachine()
     {
         stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustPlayCardOrCancel);
@@ -35,9 +36,15 @@ public class Player : MonoBehaviour
     }
     void CanSelectCardFromHand()
     {
+        playerturn = true;
         if (Input.GetMouseButtonDown(0))
         {
             MouseSelect(cam);
+        }
+        if (Input.inputString == "\b")
+        {
+            Debug.Log("Moving on");
+                playerturn = false;
         }
     }
     void MustPlayCardOrCancel()

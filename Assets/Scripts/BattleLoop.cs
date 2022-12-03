@@ -30,8 +30,12 @@ public class BattleLoop : MonoBehaviour
     void PlayerTurn()
     {
         Debug.Log("Player Turn");
+        player.playerturn = true;
+        if (player.playerturn == false)
+        {
+            stateMachine.ChangeState("PlayerEndTurn");
+        }
         player.stateMachine.ChangeState("CanSelectCardFromHand");
-        stateMachine.ChangeState("PlayerEndTurn");
     }
     void PlayerEndTurn()
     {
