@@ -20,7 +20,7 @@ public class Opponent : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             var card = deck.Draw();
-            numcards++;
+            if (numcards < 4) { numcards++; }
             if (card != null) { hand.AddToHand(card); Debug.Log("Added to handtest"); }
         }
     }
