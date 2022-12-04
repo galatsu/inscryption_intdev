@@ -58,12 +58,16 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             ClearSelection();
-            Debug.Log("Deselected card; pick a card");
+            Debug.Log("Deselected card; pick a new card");
             stateMachine.ChangeState("CanSelectCardFromHand");
         }
         if (Input.GetMouseButtonDown(0))
         {
             MouseSelect(cam);
+        }
+        if (cardSelected != null)
+        {
+            Debug.Log("Card selected");
         }
     }
     #endregion
@@ -81,20 +85,18 @@ public class Player : MonoBehaviour
             //clicking a card; transition into the state where we must place it in a slot
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
+                //in theory we get the GameObject parent of collider hitCard, in this case the object is the card
+                //in practice...cardSelected still isn't anything?
                 cardSelected = hitCard.GetParent();
-                Debug.Log("Selected card: " + cardSelected);
+                if (cardSelected == null) { Debug.Log("Please pick a card");  }
+                Debug.Log("Selected card; now pick a slot");
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
             //clicking a slot; if we have a card selected now try to place the card in the slot
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
-                Debug.Log(hitSlot.lane);
                 Debug.Log("Selected slot");
-                if (cardSelected != null)
-                {
-                    PlayCardSelectedToBoard(slotSelected.lane);
-                }
             }
         }
         else Debug.Log("No selectable object found");
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
             cardSelected = null;
         }
         //if we dont have enough cost to play the card
-        if (currentcost < cardSelected.GetCost())
+        if (currentcost < cardSelected.cardData.cost)
         {
             Debug.Log("You don't have enough for this card");
             hand.RemoveCardConfirmed(false, cardSelected);
