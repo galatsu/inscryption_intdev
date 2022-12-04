@@ -39,16 +39,9 @@ public class Player : MonoBehaviour
     //when it is our turn, we can select a card from our hand
     void CanSelectCardFromHand()
     {
-        playerturn = true;
         if (Input.GetMouseButtonDown(0))
         {
             MouseSelect(cam);
-        }
-        //end your turn; REPLACE WITH A PROPER END TURN BUTTON OR SOMETHING ONCE IMPLEMENTED
-        if (Input.inputString == "\b")
-        {
-            Debug.Log("Moving on");
-            playerturn = false;
         }
     }
     //once we've selected our card, we need to pick a slot to play it in; or press space to deselect and pick another

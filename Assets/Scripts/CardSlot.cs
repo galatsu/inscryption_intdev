@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class CardSlot : MonoBehaviour
 {
-    CardObject cardInSlot;
+    public CardObject cardInSlot;
     private Board board;
     public delegate CardObject CardPlacementConfirmed(bool success);
     public CardPlacementConfirmed cardPlacementConfirmed;
