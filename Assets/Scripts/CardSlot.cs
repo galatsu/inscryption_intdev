@@ -5,15 +5,26 @@ using UnityEngine.Events;
 
 public class CardSlot : MonoBehaviour
 {
-    CardObject cardInSlot;
+    public CardObject cardInSlot;
     private Board board;
     public delegate CardObject CardPlacementConfirmed(bool success);
     public CardPlacementConfirmed cardPlacementConfirmed;
+    public int lane;
+    public int row;
+    //if there is nothing in the slot return false meaning empty
+    void Start()
+    {
+        string tolane = gameObject.name.Substring(13, 1);
+        string torow = gameObject.name.Substring(19, 1);
+        lane = int.Parse(tolane);
+        row = int.Parse(torow);
+    }
     public bool IsOccupied()
     {
         if (cardInSlot == null) return false;
         else return true;
     }
+    //if the slot is empty make the card enter the slot
     public void InsertCard(CardObject card)
     {
         if (!IsOccupied())
@@ -23,7 +34,6 @@ public class CardSlot : MonoBehaviour
     }
     public CardPlacementConfirmed TryToRemoveCard()
     {
-
         cardPlacementConfirmed+=RemoveCardConfirmed;
         return cardPlacementConfirmed;
     }
