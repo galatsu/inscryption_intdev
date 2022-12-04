@@ -31,10 +31,12 @@ public class Player : MonoBehaviour
         this.stateMachine.Execute();
     }
     #region states
+    //state in which we can't select a card; plays when the opponent is doing things
     void CantSelectCard()
     {
         ClearSelection();
     }
+    //when it is our turn, we can select a card from our hand
     void CanSelectCardFromHand()
     {
         playerturn = true;
@@ -42,19 +44,26 @@ public class Player : MonoBehaviour
         {
             MouseSelect(cam);
         }
+        //end your turn; REPLACE WITH A PROPER END TURN BUTTON OR SOMETHING ONCE IMPLEMENTED
         if (Input.inputString == "\b")
         {
             Debug.Log("Moving on");
             playerturn = false;
         }
     }
+    //once we've selected our card, we need to pick a slot to play it in; or press space to deselect and pick another
+    //maybe add another button to cancel your current selection?
     void MustPlayCardOrCancel()
     {
-        if (Input.inputString == "\b")
+        if (Input.GetKeyDown("space"))
         {
-            cardSelected = null;
+            ClearSelection();
+            Debug.Log("Deselected card; pick a card");
             stateMachine.ChangeState("CanSelectCardFromHand");
-            Debug.Log("Pick a card");
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            MouseSelect(cam);
         }
     }
     #endregion
@@ -69,15 +78,18 @@ public class Player : MonoBehaviour
         if (hit.transform != null)
         {
             Transform objectHit = hit.transform;
+            //clicking a card; transition into the state where we must place it in a slot
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
                 cardSelected = hitCard.GetParent();
-                Debug.Log("Selected card");
+                Debug.Log("Selected card: " + cardSelected);
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
+            //clicking a slot; if we have a card selected now try to place the card in the slot
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
+                Debug.Log(hitSlot.lane);
                 Debug.Log("Selected slot");
                 if (cardSelected != null)
                 {
@@ -87,11 +99,13 @@ public class Player : MonoBehaviour
         }
         else Debug.Log("No selectable object found");
     }
+    //quick way to just clear everything we have selected
     void ClearSelection()
     {
         cardSelected = null;
         slotSelected = null;
     }
+    //add cards from our deck to our hand
     public void DrawFromDeckToHand(int amount = 1)
     {
         for (int i = 0; i < amount; i++)
@@ -107,23 +121,27 @@ public class Player : MonoBehaviour
     }
     void PlayCardSelectedToBoard(int lane)
     {
+        //if there is a card already in this slot
         if (board.cardSlots[lane, 0].IsOccupied())
         {
             Debug.Log("This lane is already full");
             hand.RemoveCardConfirmed(false, cardSelected);
             cardSelected = null;
         }
+        //if we dont have enough cost to play the card
         if (currentcost < cardSelected.GetCost())
         {
             Debug.Log("You don't have enough for this card");
             hand.RemoveCardConfirmed(false, cardSelected);
             cardSelected = null;
         }
+        //if the lane is empty and we have enough to play the card
         else
         {
             hand.RemoveCardConfirmed(true, cardSelected);
             board.cardSlots[lane, 0].InsertCard(cardSelected);
             cardSelected = null;
+            Debug.Log("Card played in Lane " + lane);
         }
 
     }
