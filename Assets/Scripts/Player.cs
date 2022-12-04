@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
                 //in theory we get the GameObject parent of collider hitCard, in this case the object is the card
                 //in practice...cardSelected still isn't anything?
                 cardSelected = hitCard.GetParent();
+                //THIS LINE ABOVE IS THE PROBLEM because literally everything else in this if block works
                 if (cardSelected == null) { Debug.Log("Please pick a card");  }
                 Debug.Log("Selected card; now pick a slot");
                 stateMachine.ChangeState("MustPlayCardOrCancel");
