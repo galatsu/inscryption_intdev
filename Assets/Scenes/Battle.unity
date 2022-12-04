@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1428663916}
   opponent: {fileID: 1034050906}
-  board: {fileID: 0}
+  board: {fileID: 1856842556}
 --- !u!4 &1879231573
 Transform:
   m_ObjectHideFlags: 0

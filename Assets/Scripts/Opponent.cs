@@ -40,7 +40,7 @@ public class Opponent : MonoBehaviour
         while (!hasacard)
         {
             cardtoplay = hand.cards[Random.Range(0, hand.cards.Count)];
-            if (currentcost < cardSelected.GetCost())
+            if (currentcost < cardtoplay.GetCost())
             {
                 hasacard = false;
             } else
