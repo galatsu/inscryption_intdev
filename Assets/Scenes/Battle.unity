@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 1856842556}
-  hand: {fileID: 0}
+  hand: {fileID: 227138234}
   deck: {fileID: 1008377729}
   currentcost: 0
   numcards: 4
@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1428663916}
   opponent: {fileID: 1034050906}
+  board: {fileID: 0}
 --- !u!4 &1879231573
 Transform:
   m_ObjectHideFlags: 0

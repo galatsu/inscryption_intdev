@@ -10,7 +10,7 @@ public class Opponent : MonoBehaviour
     [SerializeField]
     Board board;
     [SerializeField]
-    public Hand hand;
+    public OpponentHand hand;
     [SerializeField]
     Deck deck;
     public StateMachine stateMachine;

@@ -7,7 +7,7 @@ public class BattleLoop : MonoBehaviour
     public StateMachine stateMachine;
     public Player player;
     public Opponent opponent;
-    Board board;
+    public Board board;
 
     private void Awake()
     {
