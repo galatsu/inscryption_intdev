@@ -31,6 +31,25 @@ public class Board : MonoBehaviour
                 cardSlots[j, i] = slot.GetComponent<CardSlot>();
             }
         }
-        
+    }
+    //bool to make sure the opponent can actually play something
+    public bool CheckIfLanesAreFull()
+    {
+        //make an internal bool
+        bool hasopenslot = false;
+        //iterate through row 2's lanes; if one is open end the loop early, then return true afterwards; else return false
+        for (int k = 2; k < rows; k++)
+        {
+            for (int l = 0; l < lanes; l++)
+            {
+                if (cardSlots[l, k].IsOccupied() == false)
+                {
+                    hasopenslot = true;
+                    break;
+                }
+            }
+        }
+        if (hasopenslot) return true;
+        else return false;
     }
 }

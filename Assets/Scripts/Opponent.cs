@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -30,23 +29,6 @@ public class Opponent : MonoBehaviour
     void PickFromHand()
     {
         var confirmer = hand.TryToPlace();
-    }
-    public bool CheckIfLanesAreFull()
-    {
-        bool hasopenslot = false;
-        for (int j = 2; j < board.rows; j++)
-        {
-            for (int k = 0; k < board.lanes; k++)
-            {
-                if (board.cardSlots[k, j].IsOccupied() == false)
-                {
-                    hasopenslot = true;
-                    break;
-                }
-            }
-        }
-        if (hasopenslot) return true;
-        else return false;
     }
     void PickAndPlayCard(int lane)
     {
