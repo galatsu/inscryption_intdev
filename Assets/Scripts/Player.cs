@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     Deck deck;
     public StateMachine stateMachine;
     public Camera cam;
+    public int currentcost = 0;
     public int numcards = 4;
     public bool playerturn = false;
     void AssembleStateMachine()
@@ -49,7 +50,12 @@ public class Player : MonoBehaviour
     }
     void MustPlayCardOrCancel()
     {
-        
+        if (Input.inputString == "\b")
+        {
+            cardSelected = null;
+            stateMachine.ChangeState("CanSelectCardFromHand");
+            Debug.Log("Pick a card");
+        }
     }
     #endregion
     #region actions
@@ -67,11 +73,16 @@ public class Player : MonoBehaviour
             {
                 cardSelected = hitCard.GetParent();
                 Debug.Log("Selected card");
+                stateMachine.ChangeState("MustPlayCardOrCancel");
             }
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
                 Debug.Log("Selected slot");
+                if (cardSelected != null)
+                {
+                    PlayCardSelectedToBoard(slotSelected.lane);
+                }
             }
         }
         else Debug.Log("No selectable object found");
@@ -98,6 +109,13 @@ public class Player : MonoBehaviour
     {
         if (board.cardSlots[lane, 0].IsOccupied())
         {
+            Debug.Log("This lane is already full");
+            hand.RemoveCardConfirmed(false, cardSelected);
+            cardSelected = null;
+        }
+        if (currentcost < cardSelected.GetCost())
+        {
+            Debug.Log("You don't have enough for this card");
             hand.RemoveCardConfirmed(false, cardSelected);
             cardSelected = null;
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -10,18 +11,13 @@ public class Opponent : MonoBehaviour
     [SerializeField]
     Board board;
     [SerializeField]
-    public Hand hand;
-    [SerializeField]
     Deck deck;
     public StateMachine stateMachine;
-    public int numcards = 4;
-    public void DrawFromDeckToHand(int amount = 1)
+    public int currentcost = 0;
+
+    public void PlayEnemyCard(int lane)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            var card = deck.Draw();
-            if (numcards < 4) { numcards++; }
-            if (card != null) { hand.AddToHand(card); Debug.Log("Added to handtest"); }
-        }
+        var card = deck.Draw();
+        board.cardSlots[lane, 0].InsertCard(card);
     }
 }
