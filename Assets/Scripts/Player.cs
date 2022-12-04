@@ -90,12 +90,13 @@ public class Player : MonoBehaviour
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
+                int thislane = slotSelected.lane;
                 if (slotSelected == null) { Debug.Log("Please pick a slot"); }
                 Debug.Log("Selected slot; now preparing to place card");
                 if (cardSelected != null && slotSelected != null) //if we also have a cardSelected, proceed to try placing the card
                 {
                     Debug.Log("Playing card");
-                    PlayCardSelectedToBoard(1);
+                    PlayCardSelectedToBoard(thislane);
                 }
             }
         }
@@ -131,7 +132,7 @@ public class Player : MonoBehaviour
             ClearSelection();
         }
         //if we dont have enough cost to play the card
-        if (currentcost < cardSelected.cardData.cost)
+        if (currentcost < cardSelected.GetCost())
         {
             Debug.Log("You don't have enough for this card");
             hand.RemoveCardConfirmed(false, cardSelected);
@@ -143,6 +144,7 @@ public class Player : MonoBehaviour
             hand.RemoveCardConfirmed(true, cardSelected);
             board.cardSlots[lane, 0].InsertCard(cardSelected);
             Debug.Log("Card played in Lane " + lane);
+            currentcost -= cardSelected.GetCost();
             ClearSelection();
         }
 
