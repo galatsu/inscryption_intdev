@@ -9,9 +9,17 @@ public class CardSlot : MonoBehaviour
     private Board board;
     public delegate CardObject CardPlacementConfirmed(bool success);
     public CardPlacementConfirmed cardPlacementConfirmed;
-    public int lane = 0;
-    public int row = 0;
+    public int lane;
+    public int row;
     //if there is nothing in the slot return false meaning empty
+    void Start()
+    {
+        string tolane = gameObject.name.Substring(13, 1);
+        string torow = gameObject.name.Substring(19, 1);
+        Debug.Log(tolane + torow);
+        lane = int.Parse(tolane);
+        row = int.Parse(torow);
+    }
     public bool IsOccupied()
     {
         if (cardInSlot == null) return false;

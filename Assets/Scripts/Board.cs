@@ -26,8 +26,6 @@ public class Board : MonoBehaviour
                 GameObject slot = Instantiate(cardSlotPrefab, transform);
                 //for convenience sake change name of slot to show lane and row
                 slot.name = "Slot of Lane " + j + " Row " + i;
-                cardSlotPrefab.lane = j;
-                cardSlotPrefab.row = i;
                 slot.transform.position = new Vector3(j * 7, i * 8, 0);
 
                 cardSlots[j, i] = slot.GetComponent<CardSlot>();
