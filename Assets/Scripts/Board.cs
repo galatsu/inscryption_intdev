@@ -26,7 +26,7 @@ public class Board : MonoBehaviour
                 GameObject slot = Instantiate(cardSlotPrefab, transform);
                 //change name of Slot; THIS IS WHERE WE GET LANE AND ROW DATA FROM
                 slot.name = "Slot of Lane " + j + " Row " + i;
-                slot.transform.position = new Vector3(j * 7, i * 8, 0);
+                slot.transform.position = new Vector3((j * 8) - 12, i * 6, 0);
 
                 cardSlots[j, i] = slot.GetComponent<CardSlot>();
             }

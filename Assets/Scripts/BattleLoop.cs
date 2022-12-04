@@ -29,7 +29,7 @@ public class BattleLoop : MonoBehaviour
     {
         while (player.numcards < 4) { player.DrawFromDeckToHand(1); }
         Debug.Log("Player Turn");
-        player.currentcost += 1;
+        player.currentcost = 1;
         stateMachine.ChangeState("PlayerTurn");
         player.stateMachine.ChangeState("CanSelectCardFromHand");
     }
@@ -45,6 +45,7 @@ public class BattleLoop : MonoBehaviour
     //ending our turn; make it so we can't pick anything, then change to the opponent's turn
     void PlayerEndTurn()
     {
+        player.currentcost = 0;
         player.stateMachine.ChangeState("CantSelectCard");
         Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentTurn");
@@ -52,12 +53,13 @@ public class BattleLoop : MonoBehaviour
     //the opponent plays a card
     void OpponentTurn()
     {
-        opponent.currentcost += 1;
+        opponent.currentcost = 1;
         stateMachine.ChangeState("OpponentEndTurn");
     }
     //end opponent's turn
     void OpponentEndTurn()
     {
+        opponent.currentcost = 0;
         stateMachine.ChangeState("PlayerDraw");
     }
 

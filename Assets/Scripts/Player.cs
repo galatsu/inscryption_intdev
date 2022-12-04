@@ -146,6 +146,7 @@ public class Player : MonoBehaviour
             Debug.Log("Card played in Lane " + lane);
             currentcost -= cardSelected.GetCost();
             ClearSelection();
+            stateMachine.ChangeState("CanSelectCardFromHand");
         }
 
     }
