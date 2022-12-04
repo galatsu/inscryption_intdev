@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -30,8 +32,43 @@ public class Opponent : MonoBehaviour
     {
         var confirmer = hand.TryToPlace();
     }
-    void PickAndPlayCard(int lane)
+    void PickAndPlayCard()
     {
-        CardObject cardtoplay = hand.cards[Random.Range(0, hand.cards.Count)];
+        bool hasacard = false;
+        bool hasalane = false;
+        CardObject cardtoplay;
+        int lanetoplay
+        //pick a random card from hand; if we don't have enough to play the card, for now just pick something else
+        while (!hasacard)
+        {
+            cardtoplay = hand.cards[Random.Range(0, hand.cards.Count)];
+            if (currentcost < cardSelected.GetCost())
+            {
+                hasacard = false;
+            } else
+            {
+                hasacard = true;
+            }
+        }
+        //pick a random lane to play the card in; again if the lane is occupied pick something else
+        while (!hasalane)
+        {
+            lanetoplay = Random.Range(0, 3);
+            if (board.cardSlots[lanetoplay, 2].IsOccupied())
+            {
+                hasalane = false;
+            }
+            else
+            {
+                hasalane = true;
+            }
+        }
+        if (hasacard && hasalane)
+        {
+            hand.RemoveCardConfirmed(true, cardtoplay);
+            board.cardSlots[cardtoplay, 2].InsertCard(cardtoplay);
+            Debug.Log("Card played in Lane " + lanetoplay);
+            currentcost -= cardtoplay.GetCost();
+        }
     }
 }

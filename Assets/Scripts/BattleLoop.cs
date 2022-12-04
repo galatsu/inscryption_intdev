@@ -61,6 +61,7 @@ public class BattleLoop : MonoBehaviour
     {
         opponent.DrawFromDeckToHand(1);
         opponent.currentcost = 1;
+        if (board.CheckIfLanesAreFull) { opponent.PickAndPlayCard(); }
         stateMachine.ChangeState("OpponentEndTurn");
     }
     //end opponent's turn
