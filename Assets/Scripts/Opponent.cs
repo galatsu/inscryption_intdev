@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -31,7 +30,7 @@ public class Opponent : MonoBehaviour
     {
         var confirmer = hand.TryToPlace();
     }
-    void PlayCardSelectedToBoard(int lane)
+    /*void PlayCardSelectedToBoard(int lane)
     {
         whichcard = Random.Range(0, numcards);
         cardSelected = hand.cards[whichcard];
@@ -57,7 +56,6 @@ public class Opponent : MonoBehaviour
             cardSelected = null;
             Debug.Log("Card played in Lane " + lane);
         }
-
     }
-# endr
+    */
 }

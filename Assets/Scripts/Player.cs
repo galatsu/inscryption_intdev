@@ -85,11 +85,8 @@ public class Player : MonoBehaviour
             //clicking a card; transition into the state where we must place it in a slot
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
-                //in theory we get the GameObject parent of collider hitCard, in this case the object is the card
-                //in practice...cardSelected still isn't anything?
                 cardSelected = hitCard.GetParent();
-                //THIS LINE ABOVE IS THE PROBLEM because literally everything else in this if block works
-                if (cardSelected == null) { Debug.Log("Please pick a card");  }
+                if (cardSelected != null) { Debug.Log("Please pick a card"); }
                 Debug.Log("Selected card; now pick a slot");
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
@@ -97,7 +94,13 @@ public class Player : MonoBehaviour
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
-                Debug.Log("Selected slot");
+                int thislane = slotSelected.lane;
+                if (slotSelected != null) { Debug.Log("Please pick a slot"); }
+                Debug.Log("Selected slot; now preparing to place card");
+                if (cardSelected != null) //after clicking a slot and if we also have a cardSelected, proceed to try placing the card
+                {
+                    PlayCardSelectedToBoard(1);
+                }
             }
         }
         else Debug.Log("No selectable object found");
@@ -129,22 +132,22 @@ public class Player : MonoBehaviour
         {
             Debug.Log("This lane is already full");
             hand.RemoveCardConfirmed(false, cardSelected);
-            cardSelected = null;
+            ClearSelection();
         }
         //if we dont have enough cost to play the card
         if (currentcost < cardSelected.cardData.cost)
         {
             Debug.Log("You don't have enough for this card");
             hand.RemoveCardConfirmed(false, cardSelected);
-            cardSelected = null;
+            ClearSelection();
         }
         //if the lane is empty and we have enough to play the card
         else
         {
             hand.RemoveCardConfirmed(true, cardSelected);
             board.cardSlots[lane, 0].InsertCard(cardSelected);
-            cardSelected = null;
             Debug.Log("Card played in Lane " + lane);
+            ClearSelection();
         }
 
     }

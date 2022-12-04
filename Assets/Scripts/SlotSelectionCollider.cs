@@ -6,14 +6,14 @@ using UnityEngine;
 public class SlotSelectionCollider : MonoBehaviour
 {
     Collider2D collider2d;
-    CardSlot parent;
+    CardSlot parentslot;
     private void OnValidate()
     {
         collider2d = GetComponent<Collider2D>();
-        parent = GetComponentInParent<CardSlot>();
+        parentslot = transform.parent.GetComponent<CardSlot>();
     }
     public CardSlot GetParent()
     {
-        return parent;
+        return parentslot;
     }
 }

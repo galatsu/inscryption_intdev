@@ -16,7 +16,6 @@ public class CardSlot : MonoBehaviour
     {
         string tolane = gameObject.name.Substring(13, 1);
         string torow = gameObject.name.Substring(19, 1);
-        Debug.Log(tolane + torow);
         lane = int.Parse(tolane);
         row = int.Parse(torow);
     }

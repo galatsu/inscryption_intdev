@@ -6,14 +6,14 @@ using UnityEngine;
 public class CardSelectionCollider : MonoBehaviour
 {
     Collider2D collider2d;
-    CardObject parent;
+    CardObject parentcard;
     private void OnValidate()
     {
         collider2d = GetComponent<Collider2D>();
-        parent = GetComponentInParent<CardObject>();
+        parentcard = transform.parent.GetComponent<CardObject>();
     }
     public CardObject GetParent()
     {
-        return parent;
+        return parentcard;
     }
 }
