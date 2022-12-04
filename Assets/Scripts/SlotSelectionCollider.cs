@@ -7,7 +7,7 @@ public class SlotSelectionCollider : MonoBehaviour
 {
     Collider2D collider2d;
     CardSlot parentslot;
-    private void OnValidate()
+    private void Awake()
     {
         collider2d = GetComponent<Collider2D>();
         parentslot = this.transform.parent.gameObject.GetComponentInParent<CardSlot>();
