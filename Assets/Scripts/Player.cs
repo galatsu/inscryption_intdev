@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     //maybe add another button to cancel your current selection?
     void MustPlayCardOrCancel()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             ClearSelection();
             Debug.Log("Deselected card; pick a new card");
@@ -64,10 +64,6 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             MouseSelect(cam);
-        }
-        if (cardSelected != null)
-        {
-            Debug.Log("Card selected");
         }
     }
     #endregion
@@ -86,7 +82,7 @@ public class Player : MonoBehaviour
             if (objectHit.TryGetComponent(out CardSelectionCollider hitCard))
             {
                 cardSelected = hitCard.GetParent();
-                if (cardSelected != null) { Debug.Log("Please pick a card"); }
+                if (cardSelected == null) { Debug.Log("Please pick a card"); }
                 Debug.Log("Selected card; now pick a slot");
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
@@ -94,11 +90,11 @@ public class Player : MonoBehaviour
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
-                int thislane = slotSelected.lane;
                 if (slotSelected != null) { Debug.Log("Please pick a slot"); }
                 Debug.Log("Selected slot; now preparing to place card");
-                if (cardSelected != null) //after clicking a slot and if we also have a cardSelected, proceed to try placing the card
+                if (cardSelected != null && slotSelected != null) //if we also have a cardSelected, proceed to try placing the card
                 {
+                    Debug.Log("Playing card");
                     PlayCardSelectedToBoard(1);
                 }
             }
