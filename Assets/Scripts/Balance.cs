@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Balance : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int balanceofplayers = 0;
 
     // Update is called once per frame
     void Update()
