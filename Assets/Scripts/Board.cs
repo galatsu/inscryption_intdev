@@ -7,8 +7,8 @@ public class Board : MonoBehaviour
 {
     public GameObject cardSlotPrefab;
     public CardSlot[,] cardSlots;
-    const int lanes = 4;
-    const int rows = 3;
+    public const int lanes = 4;
+    public const int rows = 3;
 
     private void Awake()
     {

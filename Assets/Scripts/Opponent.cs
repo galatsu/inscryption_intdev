@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -30,32 +31,25 @@ public class Opponent : MonoBehaviour
     {
         var confirmer = hand.TryToPlace();
     }
-    /*void PlayCardSelectedToBoard(int lane)
+    public bool CheckIfLanesAreFull()
     {
-        whichcard = Random.Range(0, numcards);
-        cardSelected = hand.cards[whichcard];
-        //if there is a card already in this slot
-        if (board.cardSlots[lane, 2].IsOccupied())
+        bool hasopenslot = false;
+        for (int j = 2; j < board.rows; j++)
         {
-            Debug.Log("This lane is already full");
-            hand.RemoveCardConfirmed(false, cardSelected);
-            cardSelected = null;
+            for (int k = 0; k < board.lanes; k++)
+            {
+                if (board.cardSlots[k, j].IsOccupied() == false)
+                {
+                    hasopenslot = true;
+                    break;
+                }
+            }
         }
-        //if we dont have enough cost to play the card
-        if (currentcost < cardSelected.cardData.cost)
-        {
-            Debug.Log("You don't have enough for this card");
-            hand.RemoveCardConfirmed(false, cardSelected);
-            cardSelected = null;
-        }
-        //if the lane is empty and we have enough to play the card
-        else
-        {
-            hand.RemoveCardConfirmed(true, cardSelected);
-            board.cardSlots[lane, 2].InsertCard(cardSelected);
-            cardSelected = null;
-            Debug.Log("Card played in Lane " + lane);
-        }
+        if (hasopenslot) return true;
+        else return false;
     }
-    */
+    void PickAndPlayCard(int lane)
+    {
+        CardObject cardtoplay = hand.cards[Random.Range(0, hand.cards.Count)];
+    }
 }

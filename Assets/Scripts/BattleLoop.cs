@@ -21,13 +21,13 @@ public class BattleLoop : MonoBehaviour
     //draw four to our card then move on to opponent's turn
     void PlayerFirstTurn()
     {
-        player.DrawFromDeckToHand(4);
-        stateMachine.ChangeState("OpponentTurn");
+        player.DrawFromDeckToHand(3);
+        stateMachine.ChangeState("OpponentFirstTurn");
     }
     //if we don't have four cards, add cards until we do, then enable picking cards
     void PlayerDraw()
     {
-        while (player.numcards < 4) { player.DrawFromDeckToHand(1); }
+        player.DrawFromDeckToHand(1);
         Debug.Log("Player Turn");
         player.currentcost = 1;
         stateMachine.ChangeState("PlayerTurn");
@@ -50,9 +50,16 @@ public class BattleLoop : MonoBehaviour
         Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentTurn");
     }
+    //draw four to the opponent; then immediately transition into the opponent playing an enemy card
+    void OpponentFirstTurn()
+    {
+        opponent.DrawFromDeckToHand(3);
+        stateMachine.ChangeState("OpponentTurn");
+    }
     //the opponent plays a card
     void OpponentTurn()
     {
+        opponent.DrawFromDeckToHand(1);
         opponent.currentcost = 1;
         stateMachine.ChangeState("OpponentEndTurn");
     }
@@ -65,7 +72,7 @@ public class BattleLoop : MonoBehaviour
 
     void AssembleStatemachine()
     {
-        stateMachine = new StateMachine(PlayerFirstTurn, PlayerDraw, PlayerTurn, PlayerEndTurn, OpponentTurn, OpponentEndTurn);
+        stateMachine = new StateMachine(PlayerFirstTurn, PlayerDraw, PlayerTurn, PlayerEndTurn, OpponentFirstTurn, OpponentTurn, OpponentEndTurn);
         stateMachine.ChangeState("PlayerFirstTurn");
     }
 }
