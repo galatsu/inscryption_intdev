@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
             {
                 slotSelected = hitSlot.GetParent();
-                if (slotSelected != null) { Debug.Log("Please pick a slot"); }
+                if (slotSelected == null) { Debug.Log("Please pick a slot"); }
                 Debug.Log("Selected slot; now preparing to place card");
                 if (cardSelected != null && slotSelected != null) //if we also have a cardSelected, proceed to try placing the card
                 {
