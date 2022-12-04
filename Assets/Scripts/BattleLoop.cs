@@ -31,12 +31,12 @@ public class BattleLoop : MonoBehaviour
         Debug.Log("Player Turn");
         player.currentcost = 1;
         stateMachine.ChangeState("PlayerTurn");
+        player.playerturn = true;
         player.stateMachine.ChangeState("CanSelectCardFromHand");
     }
     //stay paused on this until we give the signal(defined in Player) to move forward
     void PlayerTurn()
     {
-        player.playerturn = true;
         if (player.playerturn == false)
         {
             stateMachine.ChangeState("PlayerEndTurn");
@@ -54,14 +54,18 @@ public class BattleLoop : MonoBehaviour
     void OpponentFirstTurn()
     {
         opponent.DrawFromDeckToHand(3);
-        stateMachine.ChangeState("OpponentTurn");
+        stateMachine.ChangeState("OpponentEndTurn");
     }
     //the opponent plays a card
     void OpponentTurn()
     {
         opponent.DrawFromDeckToHand(1);
         opponent.currentcost = 1;
-        if (board.CheckIfLanesAreFull) { opponent.PickAndPlayCard(); }
+        //if the bool in board script says that there is an empty slot for the opponent to play a card in, the opponent picks and plays a card
+        if (board.CheckIfLanesAreFull() == true)
+        {
+            opponent.PickAndPlayCard();
+        }
         stateMachine.ChangeState("OpponentEndTurn");
     }
     //end opponent's turn

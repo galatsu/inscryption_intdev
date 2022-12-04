@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class OpponentHandRenderer : MonoBehaviour
 {
-    Hand hand;
+    OpponentHand hand;
     void Awake()
     {
-        hand = GetComponentInParent<Hand>();
+        hand = GetComponentInParent<OpponentHand>();
     }
     // Update is called once per frame
     void Update()

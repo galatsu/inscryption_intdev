@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class Opponent : MonoBehaviour
@@ -18,6 +16,8 @@ public class Opponent : MonoBehaviour
     public StateMachine stateMachine;
     public int currentcost = 0;
     public int numcards = 4;
+    CardObject cardtoplay;
+    int lanetoplay;
 
     public void DrawFromDeckToHand(int amount = 1)
     {
@@ -32,12 +32,10 @@ public class Opponent : MonoBehaviour
     {
         var confirmer = hand.TryToPlace();
     }
-    void PickAndPlayCard()
+    public void PickAndPlayCard()
     {
         bool hasacard = false;
         bool hasalane = false;
-        CardObject cardtoplay;
-        int lanetoplay
         //pick a random card from hand; if we don't have enough to play the card, for now just pick something else
         while (!hasacard)
         {
@@ -66,7 +64,7 @@ public class Opponent : MonoBehaviour
         if (hasacard && hasalane)
         {
             hand.RemoveCardConfirmed(true, cardtoplay);
-            board.cardSlots[cardtoplay, 2].InsertCard(cardtoplay);
+            board.cardSlots[lanetoplay, 2].InsertCard(cardtoplay);
             Debug.Log("Card played in Lane " + lanetoplay);
             currentcost -= cardtoplay.GetCost();
         }
