@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public int costcard;
     public int damacard;
     public int healcard;
+    public string nowprompt;
 
     void AssembleStateMachine()
     {
@@ -58,13 +59,13 @@ public class Player : MonoBehaviour
             currentcost += slotSelected.cardInSlot.GetCost();
             slotSelected.cardInSlot = null;
             ClearSelection();
-            Debug.Log("This card has been sacrificed.");
+            nowprompt = "This card has been sacrificed.";
             stateMachine.ChangeState("CanSelectCardFromHand");
         }
         else if (Input.GetKeyDown(KeyCode.Backspace))
         {
             ClearSelection();
-            Debug.Log("Deselected slot; pick a new card");
+            nowprompt = "Deselected slot; pick a new card";
             stateMachine.ChangeState("CanSelectCardFromHand");
         }
     }
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ClearSelection();
-            Debug.Log("Deselected card; pick a new card");
+            nowprompt = "Deselected card; pick a new card";
             stateMachine.ChangeState("CanSelectCardFromHand");
         }
         if (Input.GetMouseButtonDown(0))
@@ -105,7 +106,7 @@ public class Player : MonoBehaviour
                 costcard = cardSelected.GetCost();
                 damacard = cardSelected.GetPower();
                 healcard = cardSelected.GetHealth();
-                Debug.Log("Selected card; now pick a slot");
+                nowprompt = "Selected card; now pick a slot";
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
             //clicking a slot; if we have a card selected now try to place the card in the slot
@@ -114,18 +115,17 @@ public class Player : MonoBehaviour
                 slotSelected = hitSlot.GetParent();
                 int thislane = slotSelected.lane;
                 if (slotSelected == null) { Debug.Log("Please pick a slot"); }
-                Debug.Log("Selected slot; checking if slot is empty");
                 if (slotSelected.IsOccupied()) //if the slot happens to be empty
                 {
                     if (slotSelected.row != 0)
                     {
-                        Debug.Log("You can only play in the bottommost row.");
+                        nowprompt = "You can only play in the bottommost row.";
                         ClearSelection();
                         stateMachine.ChangeState("CanSelectCardFromHand");
                     }
                     else
                     {
-                        Debug.Log("Sacrifice this card?");
+                        nowprompt = "Sacrifice this card? Press SPACE if yes or BACKSPACE if no.";
                         stateMachine.ChangeState("MustSacrificeOrCancel");
                     }
                 }
@@ -149,7 +149,6 @@ public class Player : MonoBehaviour
                 slotSelected = hitSlot.GetParent();
                 int thislane = slotSelected.lane;
                 if (slotSelected == null) { Debug.Log("Please pick a slot"); }
-                Debug.Log("Selected slot; now preparing to place card");
                 PlayCardSelectedToBoard(thislane);
             }
         }
@@ -184,14 +183,14 @@ public class Player : MonoBehaviour
         //if there is a card already in this slot
         if (board.cardSlots[lane, 0].IsOccupied())
         {
-            Debug.Log("This lane is already full");
+            nowprompt = "This lane is already full";
             hand.RemoveCardConfirmed(false, cardSelected);
             ClearSelection();
         }
         //if we dont have enough cost to play the card
         else if (currentcost < cardSelected.GetCost())
         {
-            Debug.Log("You don't have enough for this card");
+            nowprompt = "You don't have enough for this card";
             hand.RemoveCardConfirmed(false, cardSelected);
             ClearSelection();
         }
@@ -200,7 +199,7 @@ public class Player : MonoBehaviour
         {
             hand.RemoveCardConfirmed(true, cardSelected);
             board.cardSlots[lane, 0].InsertCard(cardSelected);
-            Debug.Log("Card played in Lane " + lane);
+            nowprompt = "Card played in Lane " + lane;
             currentcost -= cardSelected.GetCost();
             ClearSelection();
             stateMachine.ChangeState("CanSelectCardFromHand");

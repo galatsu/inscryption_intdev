@@ -46,6 +46,7 @@ public class BattleLoop : MonoBehaviour
     void PlayerEndTurn()
     {
         player.currentcost = 0;
+        player.nowprompt = "";
         player.stateMachine.ChangeState("CantSelectCard");
         board.PlayerAttacks();
         Debug.Log("Opponent Turn");

@@ -16,6 +16,6 @@ public class DisplayDataText : MonoBehaviour
         else if (whattoseek == "Stats")
         {
             TextPro.text = player.costcard.ToString() + "-cost " + player.damacard.ToString() + "-damage " + player.healcard.ToString() + "-health";
-        }
+        } else if (whattoseek == "Prompt") { TextPro.text = player.nowprompt; }
     }
 }
