@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
                 costcard = cardSelected.GetCost();
                 damacard = cardSelected.GetPower();
                 healcard = cardSelected.GetHealth();
-                nowprompt = "Selected card; now pick a slot";
+                nowprompt = "Selected card; now pick a slot, or BACKSPACE to deselect";
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
             //clicking a slot; if we have a card selected now try to place the card in the slot
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        nowprompt = "Sacrifice this card? Press SPACE if yes or BACKSPACE if no.";
+                        nowprompt = "Sacrifice this card? SPACE if yes, BACKSPACE if no.";
                         stateMachine.ChangeState("MustSacrificeOrCancel");
                     }
                 }
