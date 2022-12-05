@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -106,8 +107,17 @@ public class Player : MonoBehaviour
                 Debug.Log("Selected slot; checking if slot is empty");
                 if (slotSelected.IsOccupied()) //if the slot happens to be empty
                 {
-                    Debug.Log("Sacrifice this card?");
-                    stateMachine.ChangeState("MustSacrificeOrCancel");
+                    if (slotSelected.row != 0)
+                    {
+                        Debug.Log("You can only play in the bottommost row.");
+                        ClearSelection();
+                        stateMachine.ChangeState("CanSelectCardFromHand");
+                    }
+                    else
+                    {
+                        Debug.Log("Sacrifice this card?");
+                        stateMachine.ChangeState("MustSacrificeOrCancel");
+                    }
                 }
             }
         }
@@ -165,7 +175,7 @@ public class Player : MonoBehaviour
             ClearSelection();
         }
         //if we dont have enough cost to play the card
-        if (currentcost < cardSelected.GetCost())
+        else if (currentcost < cardSelected.GetCost())
         {
             Debug.Log("You don't have enough for this card");
             hand.RemoveCardConfirmed(false, cardSelected);
