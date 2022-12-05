@@ -61,6 +61,7 @@ public class BattleLoop : MonoBehaviour
     void OpponentTurn()
     {
         opponent.DrawFromDeckToHand(1);
+        board.OpponentsAdvance();
         opponent.currentcost = 1;
         //if the bool in board script says that there is an empty slot for the opponent to play a card in, the opponent picks and plays a card
         if (board.CheckIfLanesAreFull() == true)
@@ -73,6 +74,7 @@ public class BattleLoop : MonoBehaviour
     void OpponentEndTurn()
     {
         opponent.currentcost = 0;
+        board.OpponentAttacks();
         stateMachine.ChangeState("PlayerDraw");
     }
 

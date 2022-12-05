@@ -83,4 +83,41 @@ public class Board : MonoBehaviour
             }
         }
     }
+    public void OpponentAttacks()
+    {
+        for (int o = 0; o < lanes; o++)
+        {
+            if (cardSlots[o, 1].IsOccupied() == true)
+            {
+                CardObject thatcard = cardSlots[o, 1].cardInSlot;
+                int thatdamage = thatcard.GetPower();
+                Debug.Log("Card " + thatcard.GetName() + " in lane " + o + " is on the attack!");
+                if (cardSlots[o, 0].IsOccupied() == true)
+                {
+                    CardObject playercard = cardSlots[o, 0].cardInSlot;
+                    int playerhealth = playercard.GetHealth();
+                    int healthresult = playerhealth - thatdamage;
+                    playercard.SetHealth(healthresult);
+                    cardSlots[o, 0].CheckIfDead();
+                }
+                else
+                {
+                    Debug.Log("Attacking opponent!");
+                    balance.balanceofplayers -= thatdamage;
+                }
+            }
+        }
+    }
+    public void OpponentsAdvance()
+    {
+        for (int a = 0; a < lanes; a++)
+        {
+            CardObject cardhere = cardSlots[a, 2].cardInSlot;
+            if (cardSlots[a, 1].IsOccupied() == false)
+            {
+                cardSlots[a, 1].InsertCard(cardhere);
+                cardSlots[a, 2].cardInSlot = null;
+            }
+        }
+    }
 }
