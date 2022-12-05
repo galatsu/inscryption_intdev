@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            currentcost += slotSelected.cardInSlot.GetCost();
             slotSelected.cardInSlot = null;
             ClearSelection();
             Debug.Log("This card has been sacrificed.");
