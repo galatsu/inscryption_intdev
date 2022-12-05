@@ -9,6 +9,7 @@ public class Board : MonoBehaviour
     public CardSlot[,] cardSlots;
     public const int lanes = 4;
     public const int rows = 3;
+    public Balance balance;
 
     private void Awake()
     {
@@ -48,5 +49,38 @@ public class Board : MonoBehaviour
         }
         if (hasopenslot) return true;
         else return false;
+    }
+    public void PlayerAttacks()
+    {
+        for (int p = 0; p < lanes; p++)
+        {
+            if (cardSlots[p, 0].IsOccupied() == true)
+            {
+                CardObject thiscard = cardSlots[p, 0].cardInSlot;
+                int thisdamage = thiscard.GetPower();
+                Debug.Log("Card " + thiscard.GetName() + " in lane " + p + " is on the attack!");
+                if (cardSlots[p, 1].IsOccupied() == true)
+                {
+                    CardObject enemycard1 = cardSlots[p, 1].cardInSlot;
+                    int enemyhealth1 = enemycard1.GetHealth();
+                    int resulthealth1 = enemyhealth1 - thisdamage;
+                    enemycard1.SetHealth(resulthealth1);
+                    cardSlots[p, 1].CheckIfDead();
+                }
+                else if (cardSlots[p, 2].IsOccupied() == true)
+                {
+                    CardObject enemycard2 = cardSlots[p, 2].cardInSlot;
+                    int enemyhealth2 = enemycard2.GetHealth();
+                    int resulthealth2 = enemyhealth2 - thisdamage;
+                    enemycard2.SetHealth(resulthealth2);
+                    cardSlots[p, 2].CheckIfDead();
+                }
+                else
+                {
+                    Debug.Log("Attacking opponent!");
+                    balance.balanceofplayers += thisdamage;
+                }
+            }
+        }
     }
 }
