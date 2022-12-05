@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public bool playerturn = false;
     void AssembleStateMachine()
     {
-        stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustPlayCardOrCancel);
+        stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustSacrificeOrCancel, MustPlayCardOrCancel);
         stateMachine.ChangeState("CanSelectCardFromHand");
     }
     private void Awake()
@@ -44,6 +44,22 @@ public class Player : MonoBehaviour
             MouseSelect(cam);
         }
     }
+    void MustSacrificeOrCancel()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            slotSelected.cardInSlot = null;
+            ClearSelection();
+            Debug.Log("This card has been sacrificed.");
+            stateMachine.ChangeState("CanSelectCardFromHand");
+        }
+        else if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            ClearSelection();
+            Debug.Log("Deselected slot; pick a new card");
+            stateMachine.ChangeState("CanSelectCardFromHand");
+        }
+    }
     //once we've selected our card, we need to pick a slot to play it in; or press space to deselect and pick another
     //maybe add another button to cancel your current selection?
     void MustPlayCardOrCancel()
@@ -56,11 +72,12 @@ public class Player : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            MouseSelect(cam);
+            MousePick(cam);
         }
     }
     #endregion
     #region actions
+    //this one is for use specifically in the "first half" of selection; either to sacrifice a card or to pick a card to play
     void MouseSelect(Camera camera)
     {
         //cast a ray to determine if when we click our mouse is colliding with something
@@ -85,12 +102,34 @@ public class Player : MonoBehaviour
                 slotSelected = hitSlot.GetParent();
                 int thislane = slotSelected.lane;
                 if (slotSelected == null) { Debug.Log("Please pick a slot"); }
-                Debug.Log("Selected slot; now preparing to place card");
-                if (cardSelected != null && slotSelected != null) //if we also have a cardSelected, proceed to try placing the card
+                Debug.Log("Selected slot; checking if slot is empty");
+                if (slotSelected.IsOccupied()) //if the slot happens to be empty
                 {
-                    Debug.Log("Playing card");
-                    PlayCardSelectedToBoard(thislane);
+                    Debug.Log("Sacrifice this card?");
+                    stateMachine.ChangeState("MustSacrificeOrCancel");
                 }
+            }
+        }
+        else Debug.Log("No selectable object found");
+    }
+    void MousePick(Camera camera)
+    {
+        //cast a ray to determine if when we click our mouse is colliding with something
+        RaycastHit2D hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        hit = Physics2D.Raycast(ray.origin, ray.direction);
+        //if we do click something
+        if (hit.transform != null)
+        {
+            Transform objectHit = hit.transform;
+            //clicking a slot; now that we have a card selected we now try to place the card in the slot
+            if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
+            {
+                slotSelected = hitSlot.GetParent();
+                int thislane = slotSelected.lane;
+                if (slotSelected == null) { Debug.Log("Please pick a slot"); }
+                Debug.Log("Selected slot; now preparing to place card");
+                PlayCardSelectedToBoard(thislane);
             }
         }
         else Debug.Log("No selectable object found");
