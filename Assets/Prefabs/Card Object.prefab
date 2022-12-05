@@ -291,9 +291,9 @@ MonoBehaviour:
   cardData:
     cardName: Mirror
     art: {fileID: 21300000, guid: d4a578da7678e7b409ba2695b9c09dc5, type: 3}
-    power: 0
+    power: 1
     health: 1
-    cost: 2
+    cost: 1
   spriteRenderer: {fileID: 4256244174954768504}
   nameText: {fileID: 4256244175299824099}
   powerText: {fileID: 4256244175304753787}
@@ -821,7 +821,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

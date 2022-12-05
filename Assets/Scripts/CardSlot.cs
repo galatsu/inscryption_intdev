@@ -51,4 +51,12 @@ public class CardSlot : MonoBehaviour
         }
         
     }
+    public void CheckIfDead()
+    {
+        if (cardInSlot.GetHealth() <= 0)
+        {
+            Debug.Log("A card has been defeated; card " + cardInSlot.GetName());
+            cardInSlot = null;
+        }
+    }
 }

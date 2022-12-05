@@ -12,6 +12,5 @@ public class EndTurnButton : MonoBehaviour
         {
             player.playerturn = false;
         }
-        Debug.Log("Pressed");
     }
 }
