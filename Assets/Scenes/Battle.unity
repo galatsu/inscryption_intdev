@@ -825,6 +825,7 @@ GameObject:
   - component: {fileID: 1068659915}
   - component: {fileID: 1068659917}
   - component: {fileID: 1068659916}
+  - component: {fileID: 1068659918}
   m_Layer: 5
   m_Name: CardNameText
   m_TagString: Untagged
@@ -949,6 +950,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068659914}
   m_CullTransparentMesh: 1
+--- !u!114 &1068659918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068659914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d0ac8a429f94d14882e2ab54c59cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1428663916}
+  TextPro: {fileID: 1068659916}
+  whattoseek: Name
 --- !u!1 &1176411145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1314,10 @@ MonoBehaviour:
   currentcost: 0
   numcards: 4
   playerturn: 0
+  namecard: 
+  costcard: 0
+  damacard: 0
+  healcard: 0
 --- !u!4 &1428663917
 Transform:
   m_ObjectHideFlags: 0
@@ -1498,6 +1518,7 @@ GameObject:
   - component: {fileID: 1813241095}
   - component: {fileID: 1813241097}
   - component: {fileID: 1813241096}
+  - component: {fileID: 1813241098}
   m_Layer: 5
   m_Name: CardStatText
   m_TagString: Untagged
@@ -1622,6 +1643,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813241094}
   m_CullTransparentMesh: 1
+--- !u!114 &1813241098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813241094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d0ac8a429f94d14882e2ab54c59cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1428663916}
+  TextPro: {fileID: 1813241096}
+  whattoseek: Stats
 --- !u!114 &1856842556 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4805399882264270452, guid: f9d4d1d75838f4246ae10c3f867a4a91, type: 3}
@@ -2155,3 +2191,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1428663916}
   TextPro: {fileID: 2127771889}
+  whattoseek: Cost

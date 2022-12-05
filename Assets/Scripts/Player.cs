@@ -17,6 +17,13 @@ public class Player : MonoBehaviour
     public int currentcost = 0;
     public int numcards = 4;
     public bool playerturn = false;
+
+    //for use in DisplayDataText
+    public string namecard;
+    public int costcard;
+    public int damacard;
+    public int healcard;
+
     void AssembleStateMachine()
     {
         stateMachine = new StateMachine(CantSelectCard, CanSelectCardFromHand, MustSacrificeOrCancel, MustPlayCardOrCancel);
@@ -94,6 +101,10 @@ public class Player : MonoBehaviour
             {
                 cardSelected = hitCard.GetParent();
                 if (cardSelected == null) { Debug.Log("Please pick a card"); }
+                namecard = cardSelected.GetName();
+                costcard = cardSelected.GetCost();
+                damacard = cardSelected.GetPower();
+                healcard = cardSelected.GetHealth();
                 Debug.Log("Selected card; now pick a slot");
                 stateMachine.ChangeState("MustPlayCardOrCancel");
             }
@@ -147,6 +158,10 @@ public class Player : MonoBehaviour
     //quick way to just clear everything we have selected
     void ClearSelection()
     {
+        namecard = "";
+        costcard = 0;
+        damacard = 0;
+        healcard = 0;
         cardSelected = null;
         slotSelected = null;
     }
