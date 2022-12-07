@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 56abdbd939ca8ce4c8d5fef9a3bbe5d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a11ecc416d681e448d9a3e9f00b4d92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ea09fef01abb64cadaf124cd125ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAsset: {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  cardAsset: {fileID: 11400000, guid: d394671d7e3284bf1a09f1d437a9d5a2, type: 2}
   cardData:
     cardName: Mirror
     art: {fileID: 21300000, guid: d4a578da7678e7b409ba2695b9c09dc5, type: 3}
@@ -298,6 +298,20 @@ MonoBehaviour:
   nameText: {fileID: 4256244175299824099}
   powerText: {fileID: 4256244175304753787}
   healthText: {fileID: 4256244174820412561}
+  cardNames:
+  - MirrorCard
+  - MirrorCard
+  - MirrorCard
+  - MirrorCard
+  - CandleCard
+  - CandleCard
+  - ProphetCard
+  - EyesCard
+  - EyesCard
+  mirrorAsset: {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  candleAsset: {fileID: 11400000, guid: f9ad96447d605405d9ad0cad85ec21d9, type: 2}
+  eyesAsset: {fileID: 11400000, guid: d054ed474c64b431d96b74ec5a9d49ab, type: 2}
+  prophetAsset: {fileID: 11400000, guid: 59b337d68e938400daf0f362e6a1d7c4, type: 2}
 --- !u!1 &4256244174546012738
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,15 @@ public class CardObject : MonoBehaviour
     /*public static List<MonoBehaviour> commandStack = new List<MonoBehaviour>();*/
     public static UnityEvent onHover = new UnityEvent();
     public static UnityEvent onClick = new UnityEvent();
+
+    public string[] cardNames = new string[] {"MirrorCard", "MirrorCard", "MirrorCard", "MirrorCard", "CandleCard", "CandleCard",
+        "ProphetCard", "EyesCard", "EyesCard"};
+
+    public CardAsset mirrorAsset;
+    public CardAsset candleAsset;
+    public CardAsset eyesAsset;
+    public CardAsset prophetAsset;
+
     void OnHover()
     {
         onHover.Invoke();
@@ -32,6 +41,7 @@ public class CardObject : MonoBehaviour
     }
     void Awake()
     {
+        RandomAssetPicker();
         ResetCard();
     }
     void ResetCard()
@@ -55,6 +65,14 @@ public class CardObject : MonoBehaviour
     void LoadCardDataFromAsset()
     {
         cardData = CardData.UnpackFromAsset(cardAsset);
+    }
+    void RandomAssetPicker()
+    {
+        string selectedcard = cardNames[Random.Range(0, cardNames.Length)];
+        if (selectedcard == "MirrorCard") { cardAsset = mirrorAsset;  }
+        else if (selectedcard == "CandleCard") { cardAsset = candleAsset; }
+        else if (selectedcard == "EyesCard") { cardAsset = eyesAsset; }
+        else if (selectedcard == "ProphetCard") { cardAsset = prophetAsset; }
     }
 
     #region card data getters and setters
