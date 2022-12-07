@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     //maybe add another button to cancel your current selection?
     void MustPlayCardOrCancel()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             ClearSelection();
             nowprompt = "Deselected card; pick a new card";
