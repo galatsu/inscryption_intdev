@@ -132,6 +132,7 @@ public class CardObject : MonoBehaviour
     {
         Transform thiscard = this.transform;
         thiscard.position = new Vector3(60, 40, 0);
+        Destroy(this);
     }
 }
 
