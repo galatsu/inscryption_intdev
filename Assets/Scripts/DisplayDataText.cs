@@ -25,7 +25,12 @@ public class DisplayDataText : MonoBehaviour
             } else if (player.namecard == "the candle")
             {
                 TextPro.text = "This can only take 1 damage at a time; when damaged, it retaliates against the attacker.";
-            } else if (player.namecard == "")
+            }
+            else if (player.namecard == "the knife")
+            {
+                TextPro.text = "When this kills an opposing creature, this gets +2/+2.";
+            }
+            else if (player.namecard == "")
             {
                 TextPro.text = "";
             }

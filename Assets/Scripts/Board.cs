@@ -65,6 +65,14 @@ public class Board : MonoBehaviour
                     int enemyhealth1 = enemycard1.GetHealth();
                     int resulthealth1 = enemyhealth1 - thisdamage;
                     enemycard1.SetHealth(resulthealth1);
+                    //THIS IS WHERE THE KNIFE POWER TAKES PLACE
+                    if (resulthealth1 <= 0 && thiscard.GetName() == "the knife")
+                    {
+                        int increasehealth = thiscard.GetHealth() + 2;
+                        int increasedamage = thiscard.GetPower() + 2;
+                        thiscard.SetHealth(increasehealth);
+                        thiscard.SetPower(increasedamage);
+                    }
                     cardSlots[p, 1].CheckIfDead();
                 }
                 else if (cardSlots[p, 2].IsOccupied() == true)
@@ -73,6 +81,14 @@ public class Board : MonoBehaviour
                     int enemyhealth2 = enemycard2.GetHealth();
                     int resulthealth2 = enemyhealth2 - thisdamage;
                     enemycard2.SetHealth(resulthealth2);
+                    //THIS IS WHERE THE KNIFE POWER TAKES PLACE
+                    if (resulthealth2 <= 0 && thiscard.GetName() == "the knife")
+                    {
+                        int increasehealth = thiscard.GetHealth() + 2;
+                        int increasedamage = thiscard.GetPower() + 2;
+                        thiscard.SetHealth(increasehealth);
+                        thiscard.SetPower(increasedamage);
+                    }
                     cardSlots[p, 2].CheckIfDead();
                 }
                 else

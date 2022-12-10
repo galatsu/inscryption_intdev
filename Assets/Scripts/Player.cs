@@ -65,11 +65,19 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             currentcost += 1;
-            //NEED: Is there a way to set slotSelected based on cardSelected within itself?
-            int bigsacrifice = cardSelected.GetHealth() - 99;
-            cardSelected.SetHealth(bigsacrifice);
             soundtoplay.clip = sacriclip;
             soundtoplay.Play();
+            //THIS IS WHERE THE MANY EYES POWER TAKES PLACE
+            if (cardSelected.GetName() == "the many eyes")
+            {
+                int eyesacrifice = cardSelected.GetHealth() - 1;
+                cardSelected.SetHealth(eyesacrifice);
+            }
+            else
+            {
+                int bigsacrifice = cardSelected.GetHealth() - 99;
+                cardSelected.SetHealth(bigsacrifice);
+            }
             slotSelected.CheckIfDead();
             ClearSelection();
             nowprompt = "This card has been sacrificed.";
