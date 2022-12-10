@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         }
     }
     void MustSacrificeOrCancel()
+    //Upon selecting an already-played card we now must determine whether to sacrifice it, gaining +1 to our cost, or drop it
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -75,9 +76,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                int bigsacrifice = cardSelected.GetHealth() - 99;
+                int bigsacrifice = cardSelected.GetHealth() - 30;
                 cardSelected.SetHealth(bigsacrifice);
             }
+            if (cardSelected.GetHealth() <= 0) { cardSelected.isInSlot = false; cardSelected.byPlayer = false; }
             slotSelected.CheckIfDead();
             ClearSelection();
             nowprompt = "This card has been sacrificed.";

@@ -39,6 +39,7 @@ public class BattleLoop : MonoBehaviour
         if (player.playerturn == false)
         {
             stateMachine.ChangeState("PlayerEndTurn");
+            Debug.Log("Ending Turn");
         }
     }
     //ending our turn; make it so we can't pick anything, then change to the opponent's turn
@@ -49,7 +50,6 @@ public class BattleLoop : MonoBehaviour
         player.stateMachine.ChangeState("CantSelectCard");
         board.PlayerAttacks();
         board.CheckForPlayerTears();
-        Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentTurn");
     }
     //draw four to the opponent; then immediately transition into the opponent playing an enemy card
@@ -63,6 +63,7 @@ public class BattleLoop : MonoBehaviour
     {
         opponent.DrawFromDeckToHand(1);
         board.OpponentsAdvance();
+        Debug.Log("Opponent Turn");
         //if the bool in board script says that there is an empty slot for the opponent to play a card in, the opponent picks and plays a card
         if (board.CheckIfLanesAreFull() == true)
         {
