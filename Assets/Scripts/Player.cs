@@ -186,6 +186,7 @@ public class Player : MonoBehaviour
             nowprompt = "This lane is already full";
             hand.RemoveCardConfirmed(false, cardSelected);
             ClearSelection();
+            stateMachine.ChangeState("CanSelectCardFromHand");
         }
         //if we dont have enough cost to play the card
         else if (currentcost < cardSelected.GetCost())
@@ -193,6 +194,7 @@ public class Player : MonoBehaviour
             nowprompt = "You don't have enough for this card";
             hand.RemoveCardConfirmed(false, cardSelected);
             ClearSelection();
+            stateMachine.ChangeState("CanSelectCardFromHand");
         }
         //if the lane is empty and we have enough to play the card
         else
