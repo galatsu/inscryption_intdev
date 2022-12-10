@@ -12,6 +12,14 @@ public class Player : MonoBehaviour
     public Hand hand;
     [SerializeField]
     Deck deck;
+
+    [SerializeField]
+    AudioSource soundtoplay;
+    [SerializeField]
+    AudioClip playclip;
+    [SerializeField]
+    AudioClip sacriclip;
+
     public StateMachine stateMachine;
     public Camera cam;
     public int currentcost = 0;
@@ -106,18 +114,11 @@ public class Player : MonoBehaviour
                 costcard = cardSelected.GetCost();
                 damacard = cardSelected.GetPower();
                 healcard = cardSelected.GetHealth();
-                nowprompt = "Selected card; now pick a slot, or BACKSPACE to deselect";
-                stateMachine.ChangeState("MustPlayCardOrCancel");
-            }
-            //clicking a slot; if we have a card selected now try to place the card in the slot
-            else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
-            {
-                slotSelected = hitSlot.GetParent();
-                int thislane = slotSelected.lane;
-                if (slotSelected == null) { Debug.Log("Please pick a slot"); }
-                if (slotSelected.IsOccupied()) //if the slot happens to be empty
+                //now we see if the card is in the slot; if so, try and set it up for sacrifice
+                //with how the cards now appear on the board I don't think the old method is gonna fly
+                if (cardSelected.isInSlot == true)
                 {
-                    if (slotSelected.row != 0)
+                    if (cardSelected.internalrow != 0)
                     {
                         nowprompt = "You can only play in the bottommost row.";
                         ClearSelection();
@@ -129,6 +130,12 @@ public class Player : MonoBehaviour
                         stateMachine.ChangeState("MustSacrificeOrCancel");
                     }
                 }
+                else if (cardSelected.isInSlot == false)
+                {
+                    nowprompt = "Selected card; now pick a slot, or BACKSPACE to deselect";
+                    stateMachine.ChangeState("MustPlayCardOrCancel");
+                }
+                
             }
         }
         else Debug.Log("No selectable object found");
@@ -202,7 +209,11 @@ public class Player : MonoBehaviour
             hand.RemoveCardConfirmed(true, cardSelected);
             board.cardSlots[lane, 0].InsertCard(cardSelected);
             nowprompt = "Card played in Lane " + lane;
+            cardSelected.isInSlot = true;
+            cardSelected.internalrow = slotSelected.row;
             currentcost -= cardSelected.GetCost();
+            soundtoplay.clip = playclip;
+            soundtoplay.Play();
             ClearSelection();
             stateMachine.ChangeState("CanSelectCardFromHand");
         }

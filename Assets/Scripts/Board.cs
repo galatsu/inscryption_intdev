@@ -113,9 +113,10 @@ public class Board : MonoBehaviour
         for (int a = 0; a < lanes; a++)
         {
             CardObject cardhere = cardSlots[a, 2].cardInSlot;
-            if (cardSlots[a, 1].IsOccupied() == false)
+            if (cardSlots[a, 1].IsOccupied() == false && cardhere != null)
             {
                 cardSlots[a, 1].InsertCard(cardhere);
+                cardhere.internalrow = 1;
                 cardSlots[a, 2].cardInSlot = null;
             }
         }

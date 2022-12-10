@@ -24,7 +24,7 @@ public class CardSlot : MonoBehaviour
         if (cardInSlot == null) return false;
         else return true;
     }
-    //if the slot is empty make the card enter the slot
+    //if the slot is empty make the card enter the slot, or any other application that requires an empty/non-empty slot
     public void InsertCard(CardObject card)
     {
         if (!IsOccupied())
@@ -51,6 +51,7 @@ public class CardSlot : MonoBehaviour
         }
         
     }
+    //if the card's health is below zero, the card gets removed
     public void CheckIfDead()
     {
         if (cardInSlot.GetHealth() <= 0)
