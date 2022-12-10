@@ -11,6 +11,13 @@ public class Board : MonoBehaviour
     public const int rows = 3;
     public Balance balance;
 
+    [SerializeField]
+    AudioSource soundtoplay;
+    [SerializeField]
+    AudioClip knifeclip;
+    [SerializeField]
+    AudioClip tearsclip;
+
     private void Awake()
     {
         AssembleLanes();
@@ -72,6 +79,8 @@ public class Board : MonoBehaviour
                         int increasedamage = thiscard.GetPower() + 2;
                         thiscard.SetHealth(increasehealth);
                         thiscard.SetPower(increasedamage);
+                        soundtoplay.clip = knifeclip;
+                        soundtoplay.Play();
                     }
                     cardSlots[p, 1].CheckIfDead();
                 }
@@ -88,6 +97,8 @@ public class Board : MonoBehaviour
                         int increasedamage = thiscard.GetPower() + 2;
                         thiscard.SetHealth(increasehealth);
                         thiscard.SetPower(increasedamage);
+                        soundtoplay.clip = knifeclip;
+                        soundtoplay.Play();
                     }
                     cardSlots[p, 2].CheckIfDead();
                 }
@@ -114,6 +125,16 @@ public class Board : MonoBehaviour
                     int playerhealth = playercard.GetHealth();
                     int healthresult = playerhealth - thatdamage;
                     playercard.SetHealth(healthresult);
+                    //THIS IS WHERE THE KNIFE POWER TAKES PLACE
+                    if (playerhealth <= 0 && thatcard.GetName() == "the knife")
+                    {
+                        int increasehealth = thatcard.GetHealth() + 2;
+                        int increasedamage = thatcard.GetPower() + 2;
+                        thatcard.SetHealth(increasehealth);
+                        thatcard.SetPower(increasedamage);
+                        soundtoplay.clip = knifeclip;
+                        soundtoplay.Play();
+                    }
                     cardSlots[o, 0].CheckIfDead();
                 }
                 else
@@ -133,6 +154,62 @@ public class Board : MonoBehaviour
             {
                 cardSlots[a, 1].InsertCard(cardhere);
                 cardSlots[a, 2].cardInSlot = null;
+            }
+        }
+    }
+    //THIS IS WHERE THE TEARS POWER GOES
+    public void CheckForPlayerTears()
+    {
+        for (int t = 0; t < lanes; t++)
+        {
+            bool healing = false;
+            CardObject cardhere = cardSlots[t, 0].cardInSlot;
+            if (cardSlots[t, 0].IsOccupied() && cardhere.GetName() == "the tears")
+            {
+                int tl = t - 1;
+                int tr = t + 1;
+                if (tl >= 0 && cardSlots[tl, 0].IsOccupied())
+                {
+                    int uphealth = cardSlots[tl, 0].cardInSlot.GetHealth() + 1;
+                    cardSlots[tl, 0].cardInSlot.SetHealth(uphealth);
+                    if (healing == false) { healing = true; }
+                }
+                if (tr <= lanes && cardSlots[tr, 0].IsOccupied())
+                {
+                    int uphealth = cardSlots[tr, 0].cardInSlot.GetHealth() + 1;
+                    cardSlots[tr, 0].cardInSlot.SetHealth(uphealth);
+                    if (healing == false) { healing = true; }
+                }
+            }
+            if (healing == true) { soundtoplay.clip = tearsclip; soundtoplay.Play(); }
+        }
+    }
+    public void CheckForOpponentTears()
+    {
+        for (int r = 1; r < rows; r++)
+        {
+            for (int t = 0; t < lanes; t++)
+            {
+                bool healing = false;
+                CardObject cardhere = cardSlots[t, r].cardInSlot;
+                if (cardSlots[t, r].IsOccupied() && cardhere.GetName() == "the tears")
+                {
+                    int tl = t - 1;
+                    int tr = t + 1;
+                    if (tl >= 0 && cardSlots[tl, r].IsOccupied())
+                    {
+                        int uphealth = cardSlots[tl, r].cardInSlot.GetHealth() + 1;
+                        cardSlots[tl, 0].cardInSlot.SetHealth(uphealth);
+                        if (healing == false) { healing = true; }
+                    }
+                    if (tr <= lanes && cardSlots[tr, r].IsOccupied())
+                    {
+                        int uphealth = cardSlots[tr, r].cardInSlot.GetHealth() + 1;
+                        cardSlots[tr, 0].cardInSlot.SetHealth(uphealth);
+                        if (healing == false) { healing = true; }
+                    }
+                }
+                if (healing == true) { soundtoplay.clip = tearsclip; soundtoplay.Play(); }
             }
         }
     }
