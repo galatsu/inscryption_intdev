@@ -7,7 +7,6 @@ public class CardSlot : MonoBehaviour
 {
     public CardObject cardInSlot;
     private Board board;
-
     public delegate CardObject CardPlacementConfirmed(bool success);
     public CardPlacementConfirmed cardPlacementConfirmed;
     public int lane;

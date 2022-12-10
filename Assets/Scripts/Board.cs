@@ -196,13 +196,13 @@ public class Board : MonoBehaviour
                 {
                     int tl = t - 1;
                     int tr = t + 1;
-                    if (t != 0 && cardSlots[tl, r].IsOccupied())
+                    if (tl >= 0 && cardSlots[tl, r].IsOccupied())
                     {
                         int uphealth = cardSlots[tl, r].cardInSlot.GetHealth() + 1;
                         cardSlots[tl, 0].cardInSlot.SetHealth(uphealth);
                         if (healing == false) { healing = true; }
                     }
-                    if (t != lanes && cardSlots[tr, r].IsOccupied())
+                    if (tr <= lanes && cardSlots[tr, r].IsOccupied())
                     {
                         int uphealth = cardSlots[tr, r].cardInSlot.GetHealth() + 1;
                         cardSlots[tr, 0].cardInSlot.SetHealth(uphealth);
