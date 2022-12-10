@@ -446,6 +446,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 1f4e51c62f3d8418a92de65c749d5951, type: 3}
     - target: {fileID: 4805399882264270452, guid: f9d4d1d75838f4246ae10c3f867a4a91, type: 3}
+      propertyPath: mirrorclip
+      value: 
+      objectReference: {fileID: 8300000, guid: d2104a9b2d65541c38fa493739e82d7f, type: 3}
+    - target: {fileID: 4805399882264270452, guid: f9d4d1d75838f4246ae10c3f867a4a91, type: 3}
       propertyPath: soundtoplay
       value: 
       objectReference: {fileID: 539175258}
