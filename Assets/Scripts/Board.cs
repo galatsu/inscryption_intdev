@@ -17,6 +17,8 @@ public class Board : MonoBehaviour
     AudioClip knifeclip;
     [SerializeField]
     AudioClip tearsclip;
+    [SerializeField]
+    AudioClip mirrorclip;
 
     private void Awake()
     {
@@ -217,6 +219,53 @@ public class Board : MonoBehaviour
                     }
                 }
                 if (healing == true) { soundtoplay.clip = tearsclip; soundtoplay.Play(); }
+            }
+        }
+    }
+    //THIS IS WHERE THE MIRROR POWER GOES
+    public void PlayerCheckForMirror()
+    {
+        for (int m = 0; m < lanes; m++)
+        {
+            CardObject cardhere = cardSlots[m, 0].cardInSlot;
+            if (cardSlots[m, 0].IsOccupied() && cardhere.GetName() == "the mirror")
+            {
+                if (cardSlots[m, 1].IsOccupied())
+                {
+                    int thisdamage = cardhere.GetPower();
+                    int enemydamage = cardSlots[m, 1].cardInSlot.GetPower();
+                    cardhere.SetPower(thisdamage + enemydamage);
+                    soundtoplay.clip = mirrorclip;
+                    soundtoplay.Play();
+                } else
+                {
+                    cardhere.SetPower(1);
+                }
+            }
+        }
+    }
+    public void OpponentCheckForMirror()
+    {
+        for (int r = 1; r < rows; r++)
+        {
+            for (int m = 0; m < lanes; m++)
+            {
+                CardObject cardhere = cardSlots[m, r].cardInSlot;
+                if (cardSlots[m, r].IsOccupied() && cardhere.GetName() == "the mirror")
+                {
+                    if (cardSlots[m, 0].IsOccupied())
+                    {
+                        int thatdamage = cardhere.GetPower();
+                        int playerdamage = cardSlots[m, 0].cardInSlot.GetPower();
+                        cardhere.SetPower(thatdamage + playerdamage);
+                        soundtoplay.clip = mirrorclip;
+                        soundtoplay.Play();
+                    }
+                    else
+                    {
+                        cardhere.SetPower(1);
+                    }
+                }
             }
         }
     }

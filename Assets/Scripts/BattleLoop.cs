@@ -47,8 +47,9 @@ public class BattleLoop : MonoBehaviour
         player.currentcost = 0;
         player.nowprompt = "";
         player.stateMachine.ChangeState("CantSelectCard");
-        board.PlayerAttacks();
+        board.PlayerCheckForMirror();
         board.CheckForPlayerTears();
+        board.PlayerAttacks();
         Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentTurn");
     }
@@ -74,8 +75,9 @@ public class BattleLoop : MonoBehaviour
     void OpponentEndTurn()
     {
         opponent.currentcost = 0;
-        board.OpponentAttacks();
         board.CheckForOpponentTears();
+        board.OpponentCheckForMirror();
+        board.OpponentAttacks();
         stateMachine.ChangeState("PlayerDraw");
     }
 
