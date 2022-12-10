@@ -22,6 +22,7 @@ public class Deck : MonoBehaviour
         {
             GameObject cardObject = Instantiate(cardObjectPrefab, transform.position, transform.rotation);
             cardObject.GetComponent<CardObject>().cardAsset = card;
+            cardObject.GetComponent<CardObject>().ResetCard();
             instanceCards.Add(cardObject.GetComponent<CardObject>());
         }
         Shuffle();

@@ -206,10 +206,6 @@ public class Player : MonoBehaviour
             if (card != null) { hand.AddToHand(card); card.byPlayer = true; Debug.Log("Added to handtest"); }
         }
     }
-    void PickFromHand()
-    {
-        var confirmer = hand.TryToPlace();
-    }
     void PlayCardSelectedToBoard(int lane)
     {
         //if there is a card already in this slot

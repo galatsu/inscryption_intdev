@@ -17,18 +17,6 @@ public class CardObject : MonoBehaviour
     public static UnityEvent onHover = new UnityEvent();
     public static UnityEvent onClick = new UnityEvent();
 
-    //this is for use later in the RandomAssetPicker
-    string[] cardNames = new string[] {"MirrorCard", "MirrorCard", "MirrorCard", "MirrorCard", "CandleCard", "CandleCard",
-        "ProphetCard", "EyesCard", "EyesCard", "TendrilsCard", "TendrilsCard", "KnifeCard", "TearsCard", "TearsCard", "TearsCard"};
-
-    public CardAsset mirrorAsset;
-    public CardAsset candleAsset;
-    public CardAsset eyesAsset;
-    public CardAsset prophetAsset;
-    public CardAsset knifeAsset;
-    public CardAsset tendrilsAsset;
-    public CardAsset tearsAsset;
-
     void OnHover()
     {
         onHover.Invoke();
@@ -47,10 +35,9 @@ public class CardObject : MonoBehaviour
     }
     void Awake()
     {
-        RandomAssetPicker();
         ResetCard();
     }
-    void ResetCard()
+    public void ResetCard()
     {
         LoadCardDataFromAsset();
 
@@ -71,18 +58,6 @@ public class CardObject : MonoBehaviour
     void LoadCardDataFromAsset()
     {
         cardData = CardData.UnpackFromAsset(cardAsset);
-    }
-    //this randomly selects a card from the list of string names, mentioned above, then sets the cardAsset accordingly
-    void RandomAssetPicker()
-    {
-        string selectedcard = cardNames[Random.Range(0, cardNames.Length)];
-        if (selectedcard == "MirrorCard") { cardAsset = mirrorAsset;  }
-        else if (selectedcard == "CandleCard") { cardAsset = candleAsset; }
-        else if (selectedcard == "EyesCard") { cardAsset = eyesAsset; }
-        else if (selectedcard == "ProphetCard") { cardAsset = prophetAsset; }
-        else if (selectedcard == "KnifeCard") { cardAsset = knifeAsset; }
-        else if (selectedcard == "TendrilsCard") { cardAsset = tendrilsAsset; }
-        else if (selectedcard == "TearsCard") { cardAsset = tearsAsset; }
     }
 
     #region card data getters and setters
@@ -130,9 +105,8 @@ public class CardObject : MonoBehaviour
     }
     public void LeaveAndDie()
     {
-        Transform thiscard = this.transform;
-        thiscard.position = new Vector3(60, 40, 0);
-        Destroy(this);
+        transform.position = new Vector3(60, 40, 0);
+        Destroy(gameObject);
     }
 }
 
