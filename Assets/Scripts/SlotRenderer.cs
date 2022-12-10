@@ -15,7 +15,7 @@ public class SlotRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cardSlot.IsOccupied() && cardSlot.cardInSlot.GetHealth() > 0)
+        if (cardSlot.IsOccupied() && cardSlot.cardInSlot != null)
         {
             this.GetComponent<SpriteRenderer>().sprite = null;
             Transform card = cardSlot.cardInSlot.transform;
@@ -24,7 +24,7 @@ public class SlotRenderer : MonoBehaviour
             card.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
         } //the problem here is getting the card to go away; it really seems like you can just sacrifice the card forever
         //since it apparently doesn't disappear
-        else
+        else if (cardSlot.cardInSlot != null)
         {
             Destroy(thiscard);
             this.GetComponent<SpriteRenderer>().sprite = slotdefault;

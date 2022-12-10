@@ -56,7 +56,6 @@ public class CardSlot : MonoBehaviour
     {
         if (cardInSlot.GetHealth() <= 0)
         {
-            Destroy(cardInSlot);
             cardInSlot = null;
         }
     }

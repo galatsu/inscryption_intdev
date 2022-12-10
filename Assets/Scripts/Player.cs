@@ -70,10 +70,7 @@ public class Player : MonoBehaviour
             cardSelected.SetHealth(bigsacrifice);
             soundtoplay.clip = sacriclip;
             soundtoplay.Play();
-            for (int s = 0; s < 4; s++)
-            {
-                if (board.cardSlots[s, 0].IsOccupied() == true) { board.cardSlots[s, 0].CheckIfDead(); }
-            }
+            slotSelected.CheckIfDead();
             ClearSelection();
             nowprompt = "This card has been sacrificed.";
             stateMachine.ChangeState("CanSelectCardFromHand");
@@ -126,7 +123,8 @@ public class Player : MonoBehaviour
                 //with how the cards now appear on the board I don't think the old method is gonna fly
                 if (cardSelected.isInSlot == true)
                 {
-                    if (cardSelected.byPlayer == false)
+                    if (cardSelected.byPlayer == false) //if the card is not owned by the player on the board; i.e.
+                        //if a card in a deck or on the opponent's side is clicked
                     {
                         nowprompt = "You can only play in the bottommost row.";
                         ClearSelection();
@@ -134,7 +132,12 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
+                        Transform positioncard = cardSelected.transform;
+                        float thislane = (positioncard.position.x + 12.0f) / 8.0f;
+                        int lanepos = (int)thislane;
+                        slotSelected = board.cardSlots[lanepos, 0];
                         nowprompt = "Sacrifice the card in this lane? SPACE if yes, BACKSPACE if no.";
+                        Debug.Log("Slot of Lane " + lanepos + " Row " + 0);
                         stateMachine.ChangeState("MustSacrificeOrCancel");
                     }
                 }
