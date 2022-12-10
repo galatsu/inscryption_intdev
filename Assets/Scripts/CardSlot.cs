@@ -56,7 +56,7 @@ public class CardSlot : MonoBehaviour
     {
         if (cardInSlot.GetHealth() <= 0)
         {
-            Debug.Log("A card has been defeated; card " + cardInSlot.GetName());
+            Destroy(cardInSlot);
             cardInSlot = null;
         }
     }

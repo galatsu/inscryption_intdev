@@ -68,11 +68,13 @@ public class Player : MonoBehaviour
             //NEED: Is there a way to set slotSelected based on cardSelected within itself?
             int bigsacrifice = cardSelected.GetHealth() - 99;
             cardSelected.SetHealth(bigsacrifice);
+            soundtoplay.clip = sacriclip;
+            soundtoplay.Play();
             for (int s = 0; s < 4; s++)
             {
                 if (board.cardSlots[s, 0].IsOccupied() == true) { board.cardSlots[s, 0].CheckIfDead(); }
             }
-                ClearSelection();
+            ClearSelection();
             nowprompt = "This card has been sacrificed.";
             stateMachine.ChangeState("CanSelectCardFromHand");
         }

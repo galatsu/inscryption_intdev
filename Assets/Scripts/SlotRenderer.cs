@@ -13,11 +13,15 @@ public class SlotRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cardSlot.IsOccupied())
+        int slotsize = 1;
+        if (cardSlot.cardInSlot != null)
         {
-            Transform card = cardSlot.cardInSlot.transform;
-            card.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-            card.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            for (int i = 0; i < slotsize; i++)
+            {
+                Transform card = cardSlot.cardInSlot.transform;
+                card.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                card.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            }
         }
     }
 }
