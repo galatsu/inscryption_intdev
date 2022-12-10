@@ -11,6 +11,7 @@ public class CardObject : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public TMP_Text nameText, powerText, healthText;
     public bool isInSlot = false;
+    public bool byPlayer = false;
 
     /*public static List<MonoBehaviour> commandStack = new List<MonoBehaviour>();*/
     public static UnityEvent onHover = new UnityEvent();
@@ -26,9 +27,6 @@ public class CardObject : MonoBehaviour
     public CardAsset prophetAsset;
     public CardAsset knifeAsset;
     public CardAsset tendrilsAsset;
-
-    //this is since there's rows 0-2 we don't mess with the internalrow functions
-    public int internalrow = -1;
 
     void OnHover()
     {

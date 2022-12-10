@@ -116,7 +116,6 @@ public class Board : MonoBehaviour
             if (cardSlots[a, 1].IsOccupied() == false && cardhere != null)
             {
                 cardSlots[a, 1].InsertCard(cardhere);
-                cardhere.internalrow = 1;
                 cardSlots[a, 2].cardInSlot = null;
             }
         }

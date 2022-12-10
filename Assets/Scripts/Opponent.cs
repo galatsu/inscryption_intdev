@@ -65,7 +65,6 @@ public class Opponent : MonoBehaviour
         {
             hand.RemoveCardConfirmed(true, cardtoplay);
             board.cardSlots[lanetoplay, 2].InsertCard(cardtoplay);
-            cardtoplay.internalrow = 2;
             Debug.Log("Card played in Lane " + lanetoplay);
             currentcost -= cardtoplay.GetCost();
         }

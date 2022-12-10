@@ -17,5 +17,18 @@ public class DisplayDataText : MonoBehaviour
         {
             TextPro.text = player.costcard.ToString() + "-cost " + player.damacard.ToString() + "-damage " + player.healcard.ToString() + "-health";
         } else if (whattoseek == "Prompt") { TextPro.text = player.nowprompt; }
+        else if (whattoseek == "Desc")
+        {
+            if (player.namecard == "the mirror")
+            {
+                TextPro.text = "Add to its Damage that of the opposing creature in the first row.";
+            } else if (player.namecard == "the candle")
+            {
+                TextPro.text = "This can only take 1 damage at a time; when damaged, it retaliates against the attacker.";
+            } else if (player.namecard == "")
+            {
+                TextPro.text = "";
+            }
+        }
     }
 }

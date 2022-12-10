@@ -64,9 +64,15 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            currentcost += slotSelected.cardInSlot.GetCost();
-            slotSelected.cardInSlot = null;
-            ClearSelection();
+            currentcost += cardSelected.GetCost();
+            //NEED: Is there a way to set slotSelected based on cardSelected within itself?
+            int bigsacrifice = cardSelected.GetHealth() - 99;
+            cardSelected.SetHealth(bigsacrifice);
+            for (int s = 0; s < 4; s++)
+            {
+                if (board.cardSlots[s, 0].IsOccupied() == true) { board.cardSlots[s, 0].CheckIfDead(); }
+            }
+                ClearSelection();
             nowprompt = "This card has been sacrificed.";
             stateMachine.ChangeState("CanSelectCardFromHand");
         }
@@ -118,7 +124,7 @@ public class Player : MonoBehaviour
                 //with how the cards now appear on the board I don't think the old method is gonna fly
                 if (cardSelected.isInSlot == true)
                 {
-                    if (cardSelected.internalrow != 0)
+                    if (cardSelected.byPlayer == false)
                     {
                         nowprompt = "You can only play in the bottommost row.";
                         ClearSelection();
@@ -126,7 +132,7 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        nowprompt = "Sacrifice this card? SPACE if yes, BACKSPACE if no.";
+                        nowprompt = "Sacrifice the card in this lane? SPACE if yes, BACKSPACE if no.";
                         stateMachine.ChangeState("MustSacrificeOrCancel");
                     }
                 }
@@ -178,7 +184,7 @@ public class Player : MonoBehaviour
         {
             var card = deck.Draw();
             if (numcards < 4) { numcards++; }
-            if (card != null) { hand.AddToHand(card); Debug.Log("Added to handtest"); }
+            if (card != null) { hand.AddToHand(card); card.byPlayer = true; Debug.Log("Added to handtest"); }
         }
     }
     void PickFromHand()
@@ -210,7 +216,6 @@ public class Player : MonoBehaviour
             board.cardSlots[lane, 0].InsertCard(cardSelected);
             nowprompt = "Card played in Lane " + lane;
             cardSelected.isInSlot = true;
-            cardSelected.internalrow = slotSelected.row;
             currentcost -= cardSelected.GetCost();
             soundtoplay.clip = playclip;
             soundtoplay.Play();
