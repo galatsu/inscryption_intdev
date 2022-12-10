@@ -177,17 +177,23 @@ public class Board : MonoBehaviour
             {
                 int tl = t - 1;
                 int tr = t + 1;
-                if (tl >= 0 && cardSlots[tl, 0].IsOccupied())
+                if (t != 0)
                 {
-                    int uphealth = cardSlots[tl, 0].cardInSlot.GetHealth() + 1;
-                    cardSlots[tl, 0].cardInSlot.SetHealth(uphealth);
-                    if (healing == false) { healing = true; }
+                    if (cardSlots[tl, 0].IsOccupied())
+                    {
+                        int uphealth = cardSlots[tl, 0].cardInSlot.GetHealth() + 1;
+                        cardSlots[tl, 0].cardInSlot.SetHealth(uphealth);
+                        if (healing == false) { healing = true; }
+                    }
                 }
-                if (tr <= lanes && cardSlots[tr, 0].IsOccupied())
+                if (tr != lanes)
                 {
-                    int uphealth = cardSlots[tr, 0].cardInSlot.GetHealth() + 1;
-                    cardSlots[tr, 0].cardInSlot.SetHealth(uphealth);
-                    if (healing == false) { healing = true; }
+                    if (cardSlots[tr, 0].IsOccupied())
+                    {
+                        int uphealth = cardSlots[tr, 0].cardInSlot.GetHealth() + 1;
+                        cardSlots[tr, 0].cardInSlot.SetHealth(uphealth);
+                        if (healing == false) { healing = true; }
+                    }
                 }
             }
             if (healing == true) { soundtoplay.clip = tearsclip; soundtoplay.Play(); }
@@ -205,7 +211,7 @@ public class Board : MonoBehaviour
                 {
                     int tl = t - 1;
                     int tr = t + 1;
-                    if (tl >= 0)
+                    if (t != 0)
                     {
                         if (cardSlots[tl, r].IsOccupied())
                         {
@@ -214,7 +220,7 @@ public class Board : MonoBehaviour
                             if (healing == false) { healing = true; }
                         }
                     }
-                    if (tr <= lanes)
+                    if (tr != lanes)
                     {
                         if (cardSlots[tr, r].IsOccupied())
                         {
