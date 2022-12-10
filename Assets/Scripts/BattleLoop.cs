@@ -48,6 +48,7 @@ public class BattleLoop : MonoBehaviour
         player.nowprompt = "";
         player.stateMachine.ChangeState("CantSelectCard");
         board.PlayerAttacks();
+        board.CheckForPlayerTears();
         Debug.Log("Opponent Turn");
         stateMachine.ChangeState("OpponentTurn");
     }
@@ -74,6 +75,7 @@ public class BattleLoop : MonoBehaviour
     {
         opponent.currentcost = 0;
         board.OpponentAttacks();
+        board.CheckForOpponentTears();
         stateMachine.ChangeState("PlayerDraw");
     }
 

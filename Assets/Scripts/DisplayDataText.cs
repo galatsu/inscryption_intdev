@@ -30,6 +30,14 @@ public class DisplayDataText : MonoBehaviour
             {
                 TextPro.text = "When this kills an opposing creature, this gets +2/+2.";
             }
+            else if (player.namecard == "the tears")
+            {
+                TextPro.text = "At the end of your turn, this heals adjacent cards for 1.";
+            }
+            else if (player.namecard == "the many eyes")
+            {
+                TextPro.text = "You can sacrifice this multiple times; it takes only 1 damage each time.";
+            }
             else if (player.namecard == "")
             {
                 TextPro.text = "";

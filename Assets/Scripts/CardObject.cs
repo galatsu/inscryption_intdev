@@ -19,7 +19,7 @@ public class CardObject : MonoBehaviour
 
     //this is for use later in the RandomAssetPicker
     string[] cardNames = new string[] {"MirrorCard", "MirrorCard", "MirrorCard", "MirrorCard", "CandleCard", "CandleCard",
-        "ProphetCard", "EyesCard", "EyesCard", "TendrilsCard", "TendrilsCard", "KnifeCard"};
+        "ProphetCard", "EyesCard", "EyesCard", "TendrilsCard", "TendrilsCard", "KnifeCard", "TearsCard", "TearsCard", "TearsCard"};
 
     public CardAsset mirrorAsset;
     public CardAsset candleAsset;
@@ -27,6 +27,7 @@ public class CardObject : MonoBehaviour
     public CardAsset prophetAsset;
     public CardAsset knifeAsset;
     public CardAsset tendrilsAsset;
+    public CardAsset tearsAsset;
 
     void OnHover()
     {
@@ -81,6 +82,7 @@ public class CardObject : MonoBehaviour
         else if (selectedcard == "ProphetCard") { cardAsset = prophetAsset; }
         else if (selectedcard == "KnifeCard") { cardAsset = knifeAsset; }
         else if (selectedcard == "TendrilsCard") { cardAsset = tendrilsAsset; }
+        else if (selectedcard == "TearsCard") { cardAsset = tearsAsset; }
     }
 
     #region card data getters and setters
