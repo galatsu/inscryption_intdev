@@ -82,6 +82,9 @@ public class Board : MonoBehaviour
                         soundtoplay.clip = knifeclip;
                         soundtoplay.Play();
                     }
+                    //check if the health is down to 0; if so, remove the card
+                    if (enemycard1.DeadCard() == true || cardSlots[p, 1].CheckIfDead() == true) { cardSlots[p, 1].RemoveCardConfirmed(true, enemycard1); }
+                    else { cardSlots[p, 1].RemoveCardConfirmed(false, enemycard1); }
                     cardSlots[p, 1].CheckIfDead();
                 }
                 else if (cardSlots[p, 2].IsOccupied() == true)
@@ -100,7 +103,9 @@ public class Board : MonoBehaviour
                         soundtoplay.clip = knifeclip;
                         soundtoplay.Play();
                     }
-                    cardSlots[p, 2].CheckIfDead();
+                    //check if the health is down to 0; if so, remove the card
+                    if (enemycard2.DeadCard() == true || cardSlots[p, 2].CheckIfDead() == true) { cardSlots[p, 2].RemoveCardConfirmed(true, enemycard2); }
+                    else { cardSlots[p, 2].RemoveCardConfirmed(false, enemycard2); }
                 }
                 else
                 {
@@ -135,7 +140,9 @@ public class Board : MonoBehaviour
                         soundtoplay.clip = knifeclip;
                         soundtoplay.Play();
                     }
-                    cardSlots[o, 0].CheckIfDead();
+                    //check if the health is down to 0; if so, remove the card
+                    if (playercard.DeadCard() == true || cardSlots[o, 0].CheckIfDead() == true) { cardSlots[o, 0].RemoveCardConfirmed(true, playercard); }
+                    else { cardSlots[o, 0].RemoveCardConfirmed(false, playercard); }
                 }
                 else
                 {
