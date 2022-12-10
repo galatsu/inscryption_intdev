@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            currentcost += cardSelected.GetCost();
+            currentcost += 1;
             //NEED: Is there a way to set slotSelected based on cardSelected within itself?
             int bigsacrifice = cardSelected.GetHealth() - 99;
             cardSelected.SetHealth(bigsacrifice);
