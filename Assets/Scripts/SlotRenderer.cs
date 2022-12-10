@@ -13,6 +13,8 @@ public class SlotRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //get the size of the list within the slot; if the list has at least one object commence the renderer
+        //this is so that if the list is empty, we can alter the card's position without worry of being overwritten by this
         int size = cardSlot.slottedCard.Count;
         if (size >= 1)
         {
