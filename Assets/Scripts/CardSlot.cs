@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +8,10 @@ public class CardSlot : MonoBehaviour
 {
     public CardObject cardInSlot;
     private Board board;
-    public delegate CardObject CardPlacementConfirmed(bool success);
+
+    public List<CardObject> slottedCard;
+
+    public delegate void CardPlacementConfirmed(bool success, CardObject cardPicked);
     public CardPlacementConfirmed cardPlacementConfirmed;
     public int lane;
     public int row;
@@ -30,6 +34,7 @@ public class CardSlot : MonoBehaviour
         if (!IsOccupied())
         {
             cardInSlot = card;
+            slottedCard.Add(card);
         }
     }
     public CardPlacementConfirmed TryToRemoveCard()
@@ -37,26 +42,20 @@ public class CardSlot : MonoBehaviour
         cardPlacementConfirmed+=RemoveCardConfirmed;
         return cardPlacementConfirmed;
     }
-    CardObject RemoveCardConfirmed(bool success)
+    public void RemoveCardConfirmed(bool success, CardObject cardPicked)
     {
         cardPlacementConfirmed -= RemoveCardConfirmed;
         if (success) {
-            var card = cardInSlot;
+            var card = cardPicked;
+            slottedCard.Remove(card);
+            card.LeaveAndDie();
             cardInSlot = null;
-            return card;
         }
-        else
-        {
-            return null;
-        }
-        
     }
     //if the card's health is below zero, the card gets removed
-    public void CheckIfDead()
+    public bool CheckIfDead()
     {
-        if (cardInSlot.GetHealth() <= 0)
-        {
-            cardInSlot = null;
-        }
+        if (cardInSlot.GetHealth() <= 0) return true;
+        else return false;
     }
 }

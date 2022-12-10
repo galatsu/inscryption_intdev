@@ -78,7 +78,13 @@ public class Player : MonoBehaviour
                 int bigsacrifice = cardSelected.GetHealth() - 99;
                 cardSelected.SetHealth(bigsacrifice);
             }
-            slotSelected.CheckIfDead();
+            if (cardSelected.DeadCard() == true || slotSelected.CheckIfDead() == true)
+            {
+                slotSelected.RemoveCardConfirmed(true, cardSelected);
+            } else
+            {
+                slotSelected.RemoveCardConfirmed(false, cardSelected);
+            }
             ClearSelection();
             nowprompt = "This card has been sacrificed.";
             stateMachine.ChangeState("CanSelectCardFromHand");

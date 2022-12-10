@@ -123,5 +123,15 @@ public class CardObject : MonoBehaviour
         cardData.cardName = name;
     }
     #endregion
+    public bool DeadCard()
+    {
+        if (GetHealth() == 0) return true;
+        else return false;
+    }
+    public void LeaveAndDie()
+    {
+        Transform thiscard = this.transform;
+        thiscard.position = new Vector3(60, 40, 0);
+    }
 }
 
