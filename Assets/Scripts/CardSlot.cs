@@ -9,7 +9,6 @@ public class CardSlot : MonoBehaviour
     public CardObject cardInSlot;
     private Board board;
 
-    public List<CardObject> slottedCard;
 
     public delegate void CardPlacementConfirmed(bool success, CardObject cardPicked);
     public CardPlacementConfirmed cardPlacementConfirmed;
@@ -34,7 +33,6 @@ public class CardSlot : MonoBehaviour
         if (!IsOccupied())
         {
             cardInSlot = card;
-            slottedCard.Add(card);
         }
     }
     public CardPlacementConfirmed TryToRemoveCard()
@@ -47,7 +45,6 @@ public class CardSlot : MonoBehaviour
         cardPlacementConfirmed -= RemoveCardConfirmed;
         if (success) {
             var card = cardPicked;
-            slottedCard.Remove(card);
             card.LeaveAndDie();
             cardInSlot = null;
         }
