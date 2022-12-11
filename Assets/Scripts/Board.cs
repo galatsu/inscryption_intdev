@@ -216,7 +216,7 @@ public class Board : MonoBehaviour
                         if (cardSlots[tl, r].IsOccupied())
                         {
                             int uphealth = cardSlots[tl, r].cardInSlot.GetHealth() + 1;
-                            cardSlots[tl, 0].cardInSlot.SetHealth(uphealth);
+                            cardSlots[tl, 0].cardInSlot?.SetHealth(uphealth);
                             if (healing == false) { healing = true; }
                         }
                     }
@@ -225,7 +225,7 @@ public class Board : MonoBehaviour
                         if (cardSlots[tr, r].IsOccupied())
                         {
                             int uphealth = cardSlots[tr, r].cardInSlot.GetHealth() + 1;
-                            cardSlots[tr, 0].cardInSlot.SetHealth(uphealth);
+                            cardSlots[tr, 0].cardInSlot?.SetHealth(uphealth);
                             if (healing == false) { healing = true; }
                         }
                     }

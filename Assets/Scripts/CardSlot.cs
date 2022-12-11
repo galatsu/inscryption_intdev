@@ -52,7 +52,7 @@ public class CardSlot : MonoBehaviour
     //if the card's health is below zero, the card gets removed
     public bool CheckIfDead()
     {
-        if (cardInSlot.GetHealth() <= 0) return true;
+        if (cardInSlot?.GetHealth() <= 0) return true;
         else return false;
     }
 }
