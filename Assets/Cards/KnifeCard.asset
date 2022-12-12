@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8717492e2f8b8644ea08d9e7afdfe2e8, type: 3}
-  m_Name: EyesCard
+  m_Name: KnifeCard
   m_EditorClassIdentifier: 
-  cardName: the many eyes
-  art: {fileID: 21300000, guid: 9eb49699bf4ca8d40bddf570e90a0f41, type: 3}
+  cardName: the knife
+  art: {fileID: 21300000, guid: 5f8771f7afef84d2694978b8bbc60bd4, type: 3}
   power: 1
-  health: 6
-  cost: 2
+  health: 3
+  cost: 1
   cardValidater:
     m_PersistentCalls:
       m_Calls: []

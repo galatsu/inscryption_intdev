@@ -45,3 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSlotPrefab: {fileID: 8221383158434485847, guid: 1063f65974fca654abee7f5858080533, type: 3}
+  balance: {fileID: 0}
+  soundtoplay: {fileID: 0}
+  knifeclip: {fileID: 8300000, guid: 5cdcaa32462bf45329fa163811ee5890, type: 3}
+  tearsclip: {fileID: 8300000, guid: 1f4e51c62f3d8418a92de65c749d5951, type: 3}
+  mirrorclip: {fileID: 8300000, guid: d2104a9b2d65541c38fa493739e82d7f, type: 3}

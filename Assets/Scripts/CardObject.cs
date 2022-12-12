@@ -10,10 +10,13 @@ public class CardObject : MonoBehaviour
     public CardData cardData;
     public SpriteRenderer spriteRenderer;
     public TMP_Text nameText, powerText, healthText;
+    public bool isInSlot = false;
+    public bool byPlayer = false;
 
     /*public static List<MonoBehaviour> commandStack = new List<MonoBehaviour>();*/
     public static UnityEvent onHover = new UnityEvent();
     public static UnityEvent onClick = new UnityEvent();
+
     void OnHover()
     {
         onHover.Invoke();
@@ -34,7 +37,7 @@ public class CardObject : MonoBehaviour
     {
         ResetCard();
     }
-    void ResetCard()
+    public void ResetCard()
     {
         LoadCardDataFromAsset();
 
@@ -95,5 +98,15 @@ public class CardObject : MonoBehaviour
         cardData.cardName = name;
     }
     #endregion
+    public bool DeadCard()
+    {
+        if (GetHealth() == 0) return true;
+        else return false;
+    }
+    public void LeaveAndDie()
+    {
+        transform.position = new Vector3(60, 40, 0);
+        Destroy(gameObject);
+    }
 }
 

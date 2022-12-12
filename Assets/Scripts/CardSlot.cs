@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +8,9 @@ public class CardSlot : MonoBehaviour
 {
     public CardObject cardInSlot;
     private Board board;
-    public delegate CardObject CardPlacementConfirmed(bool success);
+
+
+    public delegate void CardPlacementConfirmed(bool success, CardObject cardPicked);
     public CardPlacementConfirmed cardPlacementConfirmed;
     public int lane;
     public int row;
@@ -24,7 +27,7 @@ public class CardSlot : MonoBehaviour
         if (cardInSlot == null) return false;
         else return true;
     }
-    //if the slot is empty make the card enter the slot
+    //if the slot is empty make the card enter the slot, or any other application that requires an empty/non-empty slot
     public void InsertCard(CardObject card)
     {
         if (!IsOccupied())
@@ -37,26 +40,19 @@ public class CardSlot : MonoBehaviour
         cardPlacementConfirmed+=RemoveCardConfirmed;
         return cardPlacementConfirmed;
     }
-    CardObject RemoveCardConfirmed(bool success)
+    public void RemoveCardConfirmed(bool success, CardObject cardPicked)
     {
         cardPlacementConfirmed -= RemoveCardConfirmed;
         if (success) {
-            var card = cardInSlot;
+            var card = cardPicked;
+            card.LeaveAndDie();
             cardInSlot = null;
-            return card;
         }
-        else
-        {
-            return null;
-        }
-        
     }
-    public void CheckIfDead()
+    //if the card's health is below zero, the card gets removed
+    public bool CheckIfDead()
     {
-        if (cardInSlot.GetHealth() <= 0)
-        {
-            Debug.Log("A card has been defeated; card " + cardInSlot.GetName());
-            cardInSlot = null;
-        }
+        if (cardInSlot?.GetHealth() <= 0) return true;
+        else return false;
     }
 }
