@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8717492e2f8b8644ea08d9e7afdfe2e8, type: 3}
   m_Name: ProphetCard
   m_EditorClassIdentifier: 
-  cardName: Prophet
+  cardName: the prophet
   art: {fileID: 21300000, guid: dbfa44db91f52b3458d1912097a21ed2, type: 3}
   power: 5
   health: 7

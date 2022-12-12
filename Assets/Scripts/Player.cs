@@ -12,6 +12,14 @@ public class Player : MonoBehaviour
     public Hand hand;
     [SerializeField]
     Deck deck;
+
+    [SerializeField]
+    AudioSource soundtoplay;
+    [SerializeField]
+    AudioClip playclip;
+    [SerializeField]
+    AudioClip sacriclip;
+
     public StateMachine stateMachine;
     public Camera cam;
     public int currentcost = 0;
@@ -56,8 +64,27 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            currentcost += slotSelected.cardInSlot.GetCost();
-            slotSelected.cardInSlot = null;
+            currentcost += 1;
+            soundtoplay.clip = sacriclip;
+            soundtoplay.Play();
+            //THIS IS WHERE THE MANY EYES POWER TAKES PLACE
+            if (cardSelected.GetName() == "the many eyes")
+            {
+                int eyesacrifice = cardSelected.GetHealth() - 1;
+                cardSelected.SetHealth(eyesacrifice);
+            }
+            else
+            {
+                int bigsacrifice = cardSelected.GetHealth() - 99;
+                cardSelected.SetHealth(bigsacrifice);
+            }
+            if (cardSelected.DeadCard() == true || slotSelected.CheckIfDead() == true)
+            {
+                slotSelected.RemoveCardConfirmed(true, cardSelected);
+            } else
+            {
+                slotSelected.RemoveCardConfirmed(false, cardSelected);
+            }
             ClearSelection();
             nowprompt = "This card has been sacrificed.";
             stateMachine.ChangeState("CanSelectCardFromHand");
@@ -106,18 +133,12 @@ public class Player : MonoBehaviour
                 costcard = cardSelected.GetCost();
                 damacard = cardSelected.GetPower();
                 healcard = cardSelected.GetHealth();
-                nowprompt = "Selected card; now pick a slot, or BACKSPACE to deselect";
-                stateMachine.ChangeState("MustPlayCardOrCancel");
-            }
-            //clicking a slot; if we have a card selected now try to place the card in the slot
-            else if (objectHit.TryGetComponent(out SlotSelectionCollider hitSlot))
-            {
-                slotSelected = hitSlot.GetParent();
-                int thislane = slotSelected.lane;
-                if (slotSelected == null) { Debug.Log("Please pick a slot"); }
-                if (slotSelected.IsOccupied()) //if the slot happens to be empty
+                //now we see if the card is in the slot; if so, try and set it up for sacrifice
+                //with how the cards now appear on the board I don't think the old method is gonna fly
+                if (cardSelected.isInSlot == true)
                 {
-                    if (slotSelected.row != 0)
+                    if (cardSelected.byPlayer == false) //if the card is not owned by the player on the board; i.e.
+                        //if a card in a deck or on the opponent's side is clicked
                     {
                         nowprompt = "You can only play in the bottommost row.";
                         ClearSelection();
@@ -125,10 +146,21 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        nowprompt = "Sacrifice this card? SPACE if yes, BACKSPACE if no.";
+                        Transform positioncard = cardSelected.transform;
+                        float thislane = (positioncard.position.x + 12.0f) / 8.0f;
+                        int lanepos = (int)thislane;
+                        slotSelected = board.cardSlots[lanepos, 0];
+                        nowprompt = "Sacrifice the card in this lane? SPACE if yes, BACKSPACE if no.";
+                        Debug.Log("Slot of Lane " + lanepos + " Row " + 0);
                         stateMachine.ChangeState("MustSacrificeOrCancel");
                     }
                 }
+                else if (cardSelected.isInSlot == false)
+                {
+                    nowprompt = "Selected card; now pick a slot, or BACKSPACE to deselect";
+                    stateMachine.ChangeState("MustPlayCardOrCancel");
+                }
+                
             }
         }
         else Debug.Log("No selectable object found");
@@ -171,12 +203,8 @@ public class Player : MonoBehaviour
         {
             var card = deck.Draw();
             if (numcards < 4) { numcards++; }
-            if (card != null) { hand.AddToHand(card); Debug.Log("Added to handtest"); }
+            if (card != null) { hand.AddToHand(card); card.byPlayer = true; Debug.Log("Added to handtest"); }
         }
-    }
-    void PickFromHand()
-    {
-        var confirmer = hand.TryToPlace();
     }
     void PlayCardSelectedToBoard(int lane)
     {
@@ -186,6 +214,7 @@ public class Player : MonoBehaviour
             nowprompt = "This lane is already full";
             hand.RemoveCardConfirmed(false, cardSelected);
             ClearSelection();
+            stateMachine.ChangeState("CanSelectCardFromHand");
         }
         //if we dont have enough cost to play the card
         else if (currentcost < cardSelected.GetCost())
@@ -193,6 +222,7 @@ public class Player : MonoBehaviour
             nowprompt = "You don't have enough for this card";
             hand.RemoveCardConfirmed(false, cardSelected);
             ClearSelection();
+            stateMachine.ChangeState("CanSelectCardFromHand");
         }
         //if the lane is empty and we have enough to play the card
         else
@@ -200,7 +230,10 @@ public class Player : MonoBehaviour
             hand.RemoveCardConfirmed(true, cardSelected);
             board.cardSlots[lane, 0].InsertCard(cardSelected);
             nowprompt = "Card played in Lane " + lane;
+            cardSelected.isInSlot = true;
             currentcost -= cardSelected.GetCost();
+            soundtoplay.clip = playclip;
+            soundtoplay.Play();
             ClearSelection();
             stateMachine.ChangeState("CanSelectCardFromHand");
         }

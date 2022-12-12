@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 56abdbd939ca8ce4c8d5fef9a3bbe5d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a11ecc416d681e448d9a3e9f00b4d92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -287,10 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ea09fef01abb64cadaf124cd125ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAsset: {fileID: 11400000, guid: c856e576358d22641bde6589b4c37d51, type: 2}
+  cardAsset: {fileID: 11400000, guid: d394671d7e3284bf1a09f1d437a9d5a2, type: 2}
   cardData:
     cardName: Mirror
-    art: {fileID: 21300000, guid: d4a578da7678e7b409ba2695b9c09dc5, type: 3}
+    art: {fileID: 21300000, guid: cbc48207a13134244b02e52ff540b368, type: 3}
     power: 1
     health: 1
     cost: 1
@@ -298,6 +298,8 @@ MonoBehaviour:
   nameText: {fileID: 4256244175299824099}
   powerText: {fileID: 4256244175304753787}
   healthText: {fileID: 4256244174820412561}
+  isInSlot: 0
+  byPlayer: 0
 --- !u!1 &4256244174546012738
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,8 +471,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4dc8df98debba1e4da6e2a41d3f95460, type: 2}
+  m_sharedMaterial: {fileID: 3047215547688939295, guid: 4dc8df98debba1e4da6e2a41d3f95460, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -609,7 +611,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: d4a578da7678e7b409ba2695b9c09dc5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cbc48207a13134244b02e52ff540b368, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -688,8 +690,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mirror
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4dc8df98debba1e4da6e2a41d3f95460, type: 2}
+  m_sharedMaterial: {fileID: 3047215547688939295, guid: 4dc8df98debba1e4da6e2a41d3f95460, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -823,8 +825,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4dc8df98debba1e4da6e2a41d3f95460, type: 2}
+  m_sharedMaterial: {fileID: 3047215547688939295, guid: 4dc8df98debba1e4da6e2a41d3f95460, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
