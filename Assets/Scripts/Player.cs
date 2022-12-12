@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public int damacard;
     public int healcard;
     public string nowprompt;
+    public string fulldata;
 
     void AssembleStateMachine()
     {
@@ -133,6 +134,7 @@ public class Player : MonoBehaviour
                 costcard = cardSelected.GetCost();
                 damacard = cardSelected.GetPower();
                 healcard = cardSelected.GetHealth();
+                fulldata = costcard.ToString() + "-cost " + healcard.ToString() + "-health/" + damacard.ToString() + "-damage";
                 //now we see if the card is in the slot; if so, try and set it up for sacrifice
                 //with how the cards now appear on the board I don't think the old method is gonna fly
                 if (cardSelected.isInSlot == true)
@@ -193,6 +195,7 @@ public class Player : MonoBehaviour
         costcard = 0;
         damacard = 0;
         healcard = 0;
+        fulldata = "";
         cardSelected = null;
         slotSelected = null;
     }
