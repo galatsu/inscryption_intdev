@@ -13,10 +13,8 @@ public class DisplayDataText : MonoBehaviour
     {
         if (whattoseek == "Cost") { TextPro.text = player.currentcost.ToString(); }
         else if (whattoseek == "Name") { TextPro.text = player.namecard; }
-        else if (whattoseek == "Stats")
-        {
-            TextPro.text = player.costcard.ToString() + "-cost " + player.damacard.ToString() + "-damage " + player.healcard.ToString() + "-health";
-        } else if (whattoseek == "Prompt") { TextPro.text = player.nowprompt; }
+        else if (whattoseek == "Stats") { TextPro.text = player.fulldata; }
+        else if (whattoseek == "Prompt") { TextPro.text = player.nowprompt; }
         else if (whattoseek == "Desc")
         {
             if (player.namecard == "the mirror")
