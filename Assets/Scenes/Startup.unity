@@ -265,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inscryption
+  m_text: Epitaph
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52d097e9c25158f4db87d2e122d0c29f, type: 2}
   m_sharedMaterial: {fileID: -2984899876757029175, guid: 52d097e9c25158f4db87d2e122d0c29f, type: 2}
