@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             soundtoplay.clip = sacriclip;
             soundtoplay.Play();
             //THIS IS WHERE THE MANY EYES POWER TAKES PLACE
-            if (cardSelected.GetName() == "the many eyes")
+            if (cardSelected.GetName() == "the eyes")
             {
                 int eyesacrifice = cardSelected.GetHealth() - 1;
                 cardSelected.SetHealth(eyesacrifice);

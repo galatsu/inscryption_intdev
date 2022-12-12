@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8717492e2f8b8644ea08d9e7afdfe2e8, type: 3}
   m_Name: SacrificeCard
   m_EditorClassIdentifier: 
-  cardName: the sacrifice
-  art: {fileID: 21300000, guid: 144785cba67f743e4a0a5c419d00b7a2, type: 3}
+  cardName: the heart
+  art: {fileID: 21300000, guid: 1bfe310884e785643aad44fa68bd3458, type: 3}
   power: 0
   health: 1
   cost: 0

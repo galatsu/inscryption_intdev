@@ -10,6 +10,13 @@ public class Balance : MonoBehaviour
     public SpriteRenderer tendrilsSprite;
     public Animator tendrilsanim;
 
+    public AudioSource gamesource;
+
+    public GameObject blackscreen;
+
+    float timer = 0.0f;
+    float endtimer = 3.0f;
+
     // Update is called once per frame
     void Update()
     {
@@ -18,7 +25,10 @@ public class Balance : MonoBehaviour
         if (balanceofplayers <= -6)
         {
             tendrilsanim.SetBool("hasLost", true);
-            SceneManager.LoadScene("Lost");
+            gamesource.clip = null;
+            blackscreen.SetActive(true);
+            timer += Time.deltaTime;
+            if (timer >= endtimer) { SceneManager.LoadScene("Lost"); }
         } else if (balanceofplayers >= 6)
         {
             SceneManager.LoadScene("Won");
@@ -27,9 +37,14 @@ public class Balance : MonoBehaviour
         {
             tendrilsanim.SetBool("isLosing", true);
         }
+        else if (balanceofplayers <= 5 && balanceofplayers >= 3)
+        {
+            tendrilsanim.SetBool("isWinning", true);
+        }
         else if (balanceofplayers >= -2 && balanceofplayers <= 2)
         {
             tendrilsanim.SetBool("isLosing", false);
+            tendrilsanim.SetBool("isWinning", false);
         }
     }
 }
